@@ -17,9 +17,9 @@ referentes a:
 
 ----
 
-### Parte 1: oTree y Python
+### Parte 1: oTree y Python.
 
-### Clase 1 - Fundamentos de Python
+### Clase 1 - Fundamentos de Python.
 
 - **Introducción:** ¿Que es Python?. Instalación. Interprete.
 Características de Python. ¿Por qué usar Python en Ciencia?
@@ -29,7 +29,7 @@ Características de Python. ¿Por qué usar Python en Ciencia?
   a objetos. Clases e Instancias. Ejemplo simple de herencia.
 
 
-### Clase 2 - Librerías en Python - Conceptos de oTree - Tutorial#0
+### Clase 2 - Librerías en Python - Conceptos de oTree - Tutorial #0.
 
 - **Librerías:** `datetime`
   (manejo de fecha local y utc), `os` (interacción con el sistema operativo),
@@ -39,55 +39,56 @@ Características de Python. ¿Por qué usar Python en Ciencia?
 - **Tutorial 0:** Instalación de oTree y creación de una encuesta simple.
 
 
-### Clase 3 - Tutorial #1 - Objetos en oTree
+### Clase 3 - Git - Tutorial #1 - Objetos en oTree
 
-- **Tutorial #1:** Public goods game
-- **Objetos en oTree:** Apps, Models, Views, Templates And Forms
+- Breve introducción a control de versiones con Git.
+- **Tutorial #1:** Public goods game.
+- **Objetos en oTree:** Apps, Models, Views, Templates And Forms.
 
 
-### Clase 4 -  Conceptos de oTree #2 - Tutorial #2 - Bots
+### Clase 4 -  Conceptos de oTree #2 - Tutorial #2 - Bots.
 
-- **Tutorial #2:** Trust Game
+- **Tutorial #2:** Trust Game.
 - **Conceptos:** Grupos y juegos multiplayer. Puntos y dinero. Tratamientos.
   Rounds y salas.
-- Testing
+- Testing.
 
 
 ----
 
-## Parte 2: oTree Avanzado
+## Parte 2: oTree Avanzado.
 
 
-### Clase 5 - Configuraciones, Internacionalización y Depuración - Tutorial #3
+### Clase 5 - Configuraciones, Internacionalización y Depuración - Tutorial #3.
 
 - Archivo de configuraciones `settings.py`.
 - Internacionalización con archivos `.po`.
 - Como hacer depuración (`pdb` e `ipdb`)
-- **Tutorial #3:** Matching Pennies
+- **Tutorial #3:** Matching Pennies.
 
 
-### Clase 6 - Experimentos Reales Complejos
+### Clase 6 - Experimentos Reales Complejos.
 
-- **Real Effort:** Particularidad: generación de texto dentro de imágenes
+- **Real Effort:** Particularidad: generación de texto dentro de imágenes.
 - **Toilet Game:** Particularidad: incluye un chat rudimentario.
 
 
-### Clase 7 - Despliegues y Mechanical Turk
+### Clase 7 - Despliegues y Mechanical Turk.
 
 - **Despliegues:** Despliegues en Heroku y despliegues locales. Bases de datos
-en producción
+en producción.
 - **MTurk:** Exponiendo el juego en mechanical turk.
 
 
 ----
 
-## Bibliografía Básica
+## Bibliografía Básica.
 
 - **Python Tutorial:** https://docs.python.org/3/tutorial/
 - **oTree Documentation:** http://otree.readthedocs.io
 
 
-## Bibliografía de Referencia
+## Bibliografía de Referencia.
 
 - **Python Documentation:** https://docs.python.org/3/
 - **Sh:** https://amoffat.github.io/sh/
@@ -105,7 +106,7 @@ en producción
 
 ----
 
-## Referencias
+## Referencias.
 
 > Python Software Foundation. The Python Programing Language. Retrieved June
   25, 2017, from https://www.python.org/
