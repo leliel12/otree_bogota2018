@@ -17,4 +17,4 @@ referentes a:
 
 ## Recursos
 
-Programa: [programa.md]
+- [Programa Completo, Bibliografía y Referencias](programa.md)
