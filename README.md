@@ -15,6 +15,18 @@ referentes a:
 - Crear experimentos con oTree.
 - Probar, depurar y desplegar experimentos con oTree.
 
+## Requerimientos:
+
+- Sistema operativo: Mac OSx, Linux o Windows
+- Python 3.5 o superior (instrucciones de instalación [aquí](http://otree.readthedocs.io/en/latest/install.html#step-1-install-python)
+
 ## Recursos
 
 - [Programa Completo, Bibliografía y Referencias](programa.md)
+- [Consola Online de Python](https://www.pythonanywhere.com/)
+- Editores:
+  - Mi editor favorito: [Geany](https://www.geany.org/)
+  - Entorno sugerido por oTree: [Pycharm](https://www.jetbrains.com/pycharm/download/#section=linux) **$**
+  - Favorito de los desarrolladores: [Sublimetext](https://www.sublimetext.com/) y [Atom](https://atom.io/)
+  - Entorno científico de Python [Spyder](https://pythonhosted.org/spyder/)
+  
