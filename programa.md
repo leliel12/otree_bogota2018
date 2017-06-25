@@ -17,7 +17,7 @@ referentes a:
 
 ----
 
-### Parte 1: oTree y Python.
+## Parte 1: oTree y Python.
 
 ### Clase 1 - Fundamentos de Python.
 
