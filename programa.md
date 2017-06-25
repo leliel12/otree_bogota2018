@@ -15,7 +15,6 @@ referentes a:
 - Crear experimentos con oTree.
 - Probar, depurar y desplegar experimentos con oTree.
 
-----
 
 ## Parte 1: oTree y Python.
 
@@ -54,8 +53,6 @@ Características de Python. ¿Por qué usar Python en Ciencia?
 - Testing.
 
 
-----
-
 ## Parte 2: oTree Avanzado.
 
 ### Clase 5 - Configuraciones, Internacionalización y Depuración - Tutorial #3.
@@ -79,15 +76,14 @@ en producción.
 - **MTurk:** Exponiendo el juego en mechanical turk.
 
 
-----
+## Bibliografía
 
-## Bibliografía Básica.
+### Básica.
 
 - **Python Tutorial:** https://docs.python.org/3/tutorial/
 - **oTree Documentation:** http://otree.readthedocs.io
 
-
-## Bibliografía de Referencia.
+### Referencia.
 
 - **Python Documentation:** https://docs.python.org/3/
 - **Sh:** https://amoffat.github.io/sh/
@@ -102,8 +98,6 @@ en producción.
 - **Matching Pennies Game:** https://en.wikipedia.org/wiki/Matching_pennies
 - **Toilet Game:** https://www.scq.ubc.ca/a-game-theoretic-approach-to-the-toilet-seat-problem/
 
-
-----
 
 ## Referencias.
 
