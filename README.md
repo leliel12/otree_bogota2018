@@ -18,7 +18,7 @@ referentes a:
 ## Requerimientos:
 
 - Sistema operativo: Mac OSx, Linux o Windows
-- Python 3.5 o superior (instrucciones de instalación [aquí](http://otree.readthedocs.io/en/latest/install.html#step-1-install-python)
+- Python 3.5 o superior (instrucciones de instalación [aquí](http://otree.readthedocs.io/en/latest/install.html#step-1-install-python))
 
 ## Recursos
 
