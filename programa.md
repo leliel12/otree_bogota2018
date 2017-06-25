@@ -58,7 +58,6 @@ Características de Python. ¿Por qué usar Python en Ciencia?
 
 ## Parte 2: oTree Avanzado.
 
-
 ### Clase 5 - Configuraciones, Internacionalización y Depuración - Tutorial #3.
 
 - Archivo de configuraciones `settings.py`.
