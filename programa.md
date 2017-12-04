@@ -1,31 +1,26 @@
-# Diseño de Experimentos de Ciencias Sociales con Python y oTree
+# Social Sciences Experiments Design using Python and oTree
 
-Autor: Juan B Cabral jbc.develop@gmail.com
+Author: Juan B Cabral jbc.develop@gmail.com
 
-Este tutorial, persigue el objetivo de servir de introducción al lenguaje
-de programación [Python](http://python.org); y a la plataforma para el
-desarrollo de experimentos de ciencias sociales [oTree](http://www.otree.org/).
+Goals:
 
-A lo largo de las 7 clases divididas en dos partes se expondrá conceptos
-referentes a:
-
-- Programar en Python.
-- Gestionar entornos de desarrollo en Python.
-- Comprender el modelo teórico detrás de oTree.
-- Crear experimentos con oTree.
-- Probar, depurar y desplegar experimentos con oTree.
+- [Python](http://python.org) programming introduction.
+- Python environment management.
+- Understand the model behind [oTree](http://www.otree.org/).
+- Make experiments with oTree.
+- Test, debug and deploy oTree experiments.
 
 
-## Parte 1: oTree y Python.
+## Part 1: oTree y Python.
 
-### Clase 1 - Fundamentos de Python.
+### Day 1 - Python Fundamentals.
 
-- **Introducción:** ¿Que es Python?. Instalación. Interprete.
-Características de Python. ¿Por qué usar Python en Ciencia?
-- **Tipos Base:** `int`, `float`, `complex`, `str`, `list`, `tuple`,
-`dict`, `set` y `None`. Valores de verdad.
-- **Orientación a objetos:** Que es un objeto. Python como lenguaje orientado
-  a objetos. Clases e Instancias. Ejemplo simple de herencia.
+- **Introduction:** ¿What is Python?. Installation. REPL (Read-Eval-Print-Loop).
+Python Characteristics. Why Python are used in Science?
+- **Built-ins:** `int`, `float`, `complex`, `str`, `list`, `tuple`,
+`dict`, `set` y `None`. Boolean Values.
+- **Object Oriented Paradigm:** What is an object?. Python as OO language.
+  Classes and Instances. Inheritance.
 
 
 ### Clase 2 - Librerías en Python - Conceptos de oTree - Tutorial #0.
