@@ -23,14 +23,14 @@ Python Characteristics. Why Python are used in Science?
   Classes and Instances. Inheritance.
 
 
-### Clase 2 - Librerías en Python - Conceptos de oTree - Tutorial #0.
+### Clase 2 - Python Batteries - oTree Concepts - Tutorial #0
 
-- **Librerías:** `datetime`
-  (manejo de fecha local y utc), `os` (interacción con el sistema operativo),
-  `sh` (interacción con comandos externos) y `pip`
-  (para instalar extensiones). Entornos virtuales con `virtualenv`.
+- **Librerías:** `datetime` (date and time management),
+  `os` (operative system interaction),
+  `itertools` (iterator building blocks),
+  `random` (random number generators) y `pip` (extension installer).
 - **Conceptos oTree** Sessions, Subsessions, Groups and Object hierarchy.
-- **Tutorial 0:** Instalación de oTree y creación de una encuesta simple.
+- **Tutorial 0:** oTree Install and poll example.
 
 
 ### Clase 3 - Git - Tutorial #1 - Objetos en oTree
