@@ -25,6 +25,56 @@ import antigravity
 
 ---
 
+# Python Batteries - ``os`` module
+
+This module provides a portable way of using operating system dependent
+functionality.
+
+- Docs: https://docs.python.org/3/library/os.html
+
+\centerline{\includegraphics[height=50px]{imgs/linux.png}}
+
+---
+
+# `os` module
+
+- The current directory
+
+```python
+>>> os.getcwd()
+'/home/jbcabral/projects/otree_bogota2018/src'
+```
+
+```python
+# check platform module for more details
+>>> os.name
+'posix'
+```
+
+```python
+>>> for root, dnames, fnames in os.walk(path):
+        for fname in fnames:
+            print(os.path.join(root, fname))
+```
+
+
+```python
+>>> os.path.isfile("/home/juan/.bashrc")
+True
+
+>>> os.path.isdir("/home/juan/.bashrc")
+False
+
+>>> os.path.exists("/home/juan/.bashrc")
+True
+
+
+
+
+
+
+---
+
 # Python Batteries - ``datetime`` module
 
 The datetime module supplies classes for manipulating dates and times in both
