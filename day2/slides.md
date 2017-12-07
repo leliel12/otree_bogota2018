@@ -30,13 +30,29 @@ import antigravity
 This module provides a portable way of using operating system dependent
 functionality.
 
+-   The design of all built-in operating system dependent modules of Python is such
+    that as long as the same functionality is available, it uses the same interface.
+-   Extensions peculiar to a particular operating system are also available
+    through the os module, but using them is of course a threat to portability.
+-   If not separately noted, all functions that claim “Availability: Unix” are
+    supported on Mac OS X, which builds on a Unix core.
+
 - Docs: https://docs.python.org/3/library/os.html
 
 \centerline{\includegraphics[height=50px]{imgs/linux.png}}
 
 ---
 
-# `os` module
+# `os` module - Basic operations
+
+- operative system family
+
+```python
+# check platform module for more details
+>>> os.name
+'posix'
+```
+
 
 - The current directory
 
@@ -45,11 +61,38 @@ functionality.
 '/home/jbcabral/projects/otree_bogota2018/src'
 ```
 
+---
+
+# `os` module - Basic operations
+
+- create a new directory with the name "name"
+
 ```python
-# check platform module for more details
->>> os.name
-'posix'
+>>> os.mkdir("name")
 ```
+
+- create directory `name` and their parent `parent`
+
+```python
+>>> os.makedirs("parent/name")
+```
+
+- remove file (also check the module `shutil`)
+```python
+>>> os.remove("filename")
+```
+
+---
+
+# `os` module - Waliking though files
+
+- List a directory
+
+```python
+>>> os.path.listdir("path")
+```
+
+- Recursive listing
 
 ```python
 >>> for root, dnames, fnames in os.walk(path):
@@ -57,21 +100,40 @@ functionality.
             print(os.path.join(root, fname))
 ```
 
+---
 
+# `os` module - Paths
+
+- Check if a path is a file
 ```python
 >>> os.path.isfile("/home/juan/.bashrc")
 True
+```
 
+- Check if a path is a directory
+```python
 >>> os.path.isdir("/home/juan/.bashrc")
 False
+```
 
+- Check if a path exists
+```python
 >>> os.path.exists("/home/juan/.bashrc")
 True
+```
 
+---
 
+# ``os`` module - Path of the current module
 
+```python
+PATH = os.path.abspath(os.path.dirname(__file__))
+```
 
-
+- Every module has a attribute called `__file__` with the relative path of the current
+  file.
+- `os.path.dirname` remove the "file" part of the `__file__` attribute.
+- `os.path.abspath` convert the path to an absolute path.
 
 ---
 
@@ -85,7 +147,7 @@ formatting and manipulation.
 - Full Documentation: https://docs.python.org/3/library/datetime.html
 
 
-\centerline{\includegraphics[height=50px]{imgs/tm.png}}
+\centerline{\includegraphics[height=70px]{imgs/tm.png}}
 
 
 ----
@@ -204,9 +266,9 @@ datetime.datetime(2017, 12, 5, 23, 44, 19, 679390)
 
 ---
 
-## `datetime` module
+# `datetime` module
 
-Resume:
+## Resume:
 
 -   The `datetime.datetime` type represents a date and a time during that
     day.
@@ -338,11 +400,86 @@ Resume:
 \centerline{\includegraphics[height=150px]{imgs/eco.png}}
 
 
+---
+
+# Python Batteries - ``itertools`` module
+
+-   This module implements a number of iterator building blocks
+-   Some provide streams of infinite length, so they should only be accessed by
+    functions or loops that truncate the stream.
+
+- Full Documentation: https://docs.python.org/3/library/itertools.html
+
+
+\centerline{\includegraphics[height=70px]{imgs/repeat.png}}
+
+
+---
+
+# Python Batteries - ``itertools`` module
+
+- Repeat something n times
+
+```python
+>>> for e in itertools.repeat(10, 3):
+...    print(e)
+10
+10
+10
+```
+
+- Repeat any iterable forever
+
+```python
+>>> list_cycle = itertools.cycle([1,2,3])
+>>> next(list_cycle)
+1
+>>> next(list_cycle)
+2
+>>> next(list_cycle)
+3
+>>> next(list_cycle)
+1
+```
+
+---
+
+# Python Batteries - ``itertools`` module
+
+- Simple filter
+
+```python
+>>> for e in itertools.compress('ABCDE', [1,0,1,0,1]):
+...    prin(e)
+A
+C
+E
+```
+
+- Iterable concatenation
+
+```python
+>>> for e in itertools.chain('A', 'DEF'):
+...     print(e)
+A
+D
+E
+F
+```
+
+---
+
+# Python Batteries - ``itertools`` module
+
+\centerline{\includegraphics[height=110px]{imgs/comb.png}}
+
+
 
 ----------------------------------------------------------------------
 
 # References
 
+-   https://docs.python.org/3/library/shutil.html
 -   https://docs.python.org/3/library/statistics.html
 -   https://docs.python.org/3/library/collections.html
 -   https://docs.python.org/3/library/itertools.html
