@@ -22,11 +22,10 @@ referentes a:
 
 ## Recursos
 
-- [Programa Completo, Bibliografía y Referencias](programa.md)
+- [Programa Completo, Bibliografía y Referencias](program.md)
 - [Consola Online de Python](https://www.pythonanywhere.com/)
 - Editores:
   - Mi editor favorito: [Geany](https://www.geany.org/)
   - Entorno sugerido por oTree: [Pycharm](https://www.jetbrains.com/pycharm/download/#section=linux) **$**
   - Favorito de los desarrolladores: [Sublimetext](https://www.sublimetext.com/) y [Atom](https://atom.io/)
   - Entorno científico de Python [Spyder](https://pythonhosted.org/spyder/)
-  
