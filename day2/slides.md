@@ -474,11 +474,169 @@ F
 \centerline{\includegraphics[height=110px]{imgs/comb.png}}
 
 
+---
+
+# Python Batteries - ``pip`` module and tool
+
+**pip** is a package management system used to install and manage software
+packages written in Python. Many packages can be found in the Python Package
+Index (PyPI)
+
+\centerline{\includegraphics[height=110px]{imgs/install.png}}
+
+**IT'S A COMMAND LINE TOOL!!!**
+
+---
+
+# Python Batteries - ``pip`` search
+
+```bash
+$ pip search otree
+cyw-bogus (0.4.24)             - oTree is a toolset that makes it easy to create and
+                                 administer web-based social science experiments.
+otree-boto2-shim (0.3.2)       - Shim package so that boto2 imports don't fail when using
+                                 oTree.
+otree-save-the-change (2.0.0)  - Automatically save only changed model data.
+otree-core (1.4.29)            - oTree is a toolset that makes it easy to create and
+                                 administer web-based social science experiments.
+otree-custom-export (0.0.4)    - customizing export options in oTree
+otree-dulwich-windows (1.0)    -
+hiwi (0.1)                     - Integrate or share otree experiments with ease
+mongotree (0.1.3)              - Python module for tree structures in MongoDB
+mturkotreeutils (0.0.3)        - set of utilities for oTree and mTurk
+otree (0.1)                    -
+scikit-otree (0.5)             - oTree integration to the scientific Python Stack
+otree-redwood (0.6.6)          - oTree extension for inter-page communication.
+otreechat (0.2.1)              - oTree chat.
+otreeutils (0.2.3)             - A package with common oTree utilities
+ovmm (0.2.2)                   - ovmm manages your virtual machine for oTree.
+slider-task (0.1.1)            - oTree Slider Task.
+```
+
+---
+
+# Python Batteries - ``pip`` install
+
+- Install
+
+```bash
+$ pip install otree-core
+```
+
+- Install Legacy version
+
+```bash
+$ pip install otree-core==1.4
+```
+
+- Upgrade
+
+```bash
+$ pip install -U otree-core
+```
+
+---
+
+# oTree Concepts
+
+## Sessions
+
+In oTree, a session is an event during which multiple participants take part
+in a series of tasks or games. An example of a session would be:
+
+>   “A number of participants will come to the lab and play a public
+    goods game, followed by a questionnaire. Participants get paid
+    EUR 10.00 for showing up, plus their earnings from the games.”
+
+
+---
+
+# oTree Concepts
+
+## Subsessions
+
+**A session is a series of subsessions**; subsessions are the “sections” or
+“modules” that constitute a session. For example:
+
+>   if a session consists of a public goods game followed by a questionnaire:
+>   - the public goods game would be subsession 1
+>   - and the questionnaire would be  subsession 2.
+
+In turn, each subsession is a sequence of pages the user must navigate
+through. For example:
+
+> if you had a 4-page public goods game followed by a 2-page questionnaire:
+
+\centerline{\includegraphics[height=110px]{imgs/session_subsession.png}}
+
+If a game is repeated for multiple rounds, **each round is a subsession**.
+
+---
+
+# oTree Concepts
+
+## Groups
+
+Each subsession can be further divided into groups of players; for example:
+
+> you could have a subsession with 30 players, divided into 15 groups of
+  2 players each. (Note: groups can be shuffled between subsessions.)
+
+
+---
+
+# oTree Concepts
+
+## Object hierarchy
+
+oTree’s entities can be arranged into the following hierarchy:
+
+```
+Session
+  |
+  +-Subsession
+      |
+      +-Group
+          |
+          +-Player
+              |
+              +-Page
+```
+
+- A session is a series of subsessions
+- A subsession contains multiple groups
+- A group contains multiple players
+- Each player proceeds through multiple pages
+
+
+---
+
+# oTree Concepts
+
+## Participant
+
+In oTree, the terms “player” and “participant” have distinct meanings.
+The relationship between participant and player is the same as the
+relationship between session and subsession:
+
+\centerline{\includegraphics[height=110px]{imgs/participant_player.png}}
+
+A player is one participant in one particular subsession. A player is like a
+temporary “role” played by a participant. A participant can be player 2
+in the first subsession, player 1 in the next subsession, and so on.
+
+---
+
+# Enough Talk!
+
+\centerline{\includegraphics[height=110px]{imgs/lets-code.jpg}}
+
 
 ----------------------------------------------------------------------
 
 # References
 
+-   https://pip.pypa.io
 -   https://docs.python.org/3/library/shutil.html
 -   https://docs.python.org/3/library/statistics.html
 -   https://docs.python.org/3/library/collections.html
