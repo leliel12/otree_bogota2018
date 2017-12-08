@@ -6,7 +6,7 @@ import os
 import hashlib
 import time
 
-cmd = "pandoc --highlight-style tango -t beamer slides.md -o slides.pdf"
+cmd = "pandoc --filter pandoc-latex-fontsize --highlight-style tango -t beamer slides.md -o slides.pdf"
 
 checksum = None
 

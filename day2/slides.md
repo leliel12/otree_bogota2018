@@ -3,6 +3,9 @@
 title:  Python Batteries - oTree Concepts - Tutorial \#0
 author: Juan Cabral - jbc.develop@gmail.com
 date: Jan, 2018
+pandoc-latex-fontsize:
+  - classes: [smallcontent]
+    size: tiny
 header-includes:
     - \usepackage{caption}
 
@@ -655,11 +658,464 @@ in the first subsession, player 1 in the next subsession, and so on.
 - Open an editor (PyCharm, SublimeText, Kate, Atom...)
 - Follow Me!
 
+---
+
+# What is “self”?
+
+In Python, self is an instance of the class you’re currently under. If you are
+ever wondering what self means in a particular context, scroll up until you
+see the name of the class.
+
+In the below example, self refers to a Player object:
+
+```python
+class Player(object):
+
+    def my_method(self):
+        return self.my_field
+```
+
+In the next example, however, self refers to a Group object:
+
+```python
+class Group(object):
+
+    def my_method(self):
+        return self.my_field
+```
+
+---
+
+# What is “self”?
+
+-   self is conceptually similar to the word **“me”**.
+
+    -   You refer to yourself as “me”,
+    -   but others refer to you by your name.
+    -   And when your friend says the word “me”, it has a different meaning
+        from when you say the word “me”.
+
+\centerline{\includegraphics[height=110px]{imgs/ego.png}}
+
+---
+
+# What is “self”?
+
+Here is a diagram of how you can refer to objects in the hierarchy within your code:
+
+\centerline{\includegraphics[height=110px]{imgs/self.png}}
+
+For example, if you are in a method on the **`Player`** class, you can access the
+player’s payoff with **`self.payoff`** (because **`self`** is the player). But if
+you are inside a **`Page`** class in **`views.py`**, the equivalent expression is
+**`self.player.payoff`**, which traverses the pointer from ‘page’ to ‘player’.
+
+
+---
+
+# `self` Examples - oTree-core
+
+```python
+class Session(...) # defined in oTree-core
+    def example(self):
+
+        # current session object
+        self
+
+        self.config
+
+        # child objects
+        self.get_subsessions()
+        self.get_participants()
+```
+
+---
+
+# `self` Examples - oTree-core
+
+```python
+class Participant(...) # defined in oTree-core
+    def example(self):
+
+        # current participant object
+        self
+
+        # parent objects
+        self.session
+
+        # child objects
+        self.get_players()
+```
+
+---
+
+# `self` examples - in your `models.py`
+
+```python
+class Subsession(BaseSubsession):
+    def example(self):
+
+        # current subsession object
+        self
+
+        # parent objects
+        self.session
+
+        # child objects
+        self.get_groups()
+        self.get_players()
+
+        # accessing previous Subsession objects
+        self.in_previous_rounds()
+        self.in_all_rounds()
+```
+
+---
+
+# `self` examples - in your `models.py`
+
+```python
+class Group(BaseGroup):
+    def example(self):
+
+        # current group object
+        self
+
+        # parent objects
+        self.session
+        self.subsession
+
+        # child objects
+        self.get_players()
+```
+
+---
+
+# `self` examples - in your `models.py`
+
+```python
+class Player(BasePlayer):
+    def my_custom_method(self): ...
+
+    def example(self):
+        # current player object
+        self
+
+        # method you defined on the current object
+        self.my_custom_method()
+        # parent objects
+        self.session
+        self.subsession
+        self.group
+        self.participant
+        self.session.config
+
+        # NEXT SLIDE
+```
+
+---
+
+# `self` examples - in your `models.py`
+
+
+```python
+class Player(BasePlayer):
+
+    def my_custom_method(self):
+        ...
+
+    def example(self):
+
+        # PREVIOUS SLIDE
+
+        # accessing previous player objects
+        self.in_previous_rounds()
+
+        # self.in_previous_rounds() + [self]
+        self.in_all_rounds()
+```
+
+---
+
+# `self` examples - in your `views.py`
+
+```python
+class MyPage(Page):
+    def example(self):
+
+        # current page object
+        self
+
+        # parent objects
+        self.session
+        self.subsession
+        self.group
+        self.player
+        self.participant
+        self.session.config
+```
+
+---
+
+# Finally How to Code
+
+Most programming languages follow a basic style or formatting standard to make
+it easy for others to read your code. In Python, we have the PEP 8 and the
+PEP 20 conventions. PEP stands for “Python Enhancement Proposal”.
+
+-   **PEP 8 -- Style Guide for Python Code**
+    https://www.python.org/dev/peps/pep-0008/
+
+-   **PEP 20 -- The Zen of Python**
+    https://www.python.org/dev/peps/pep-0020/
+
+---
+
+# PEP 20
+
+Long time Pythoneer Tim Peters succinctly channels the BDFL's guiding
+principles for Python's design into 20 aphorisms, only 19 of which have been written down.
+
+- Beautiful is better than ugly.
+- Explicit is better than implicit.
+- Simple is better than complex.
+- Complex is better than complicated.
+- Flat is better than nested.
+- Sparse is better than dense.
+- Readability counts.
+- Special cases aren't special enough to break the rules.
+- Although practicality beats purity.
+- Errors should never pass silently.
+- Unless explicitly silenced.
+- In the face of ambiguity, refuse the temptation to guess.
+- There should be one-- and preferably only one --obvious way to do it.
+
+
+---
+
+# PEP 20
+
+- Although that way may not be obvious at first unless you're Dutch.
+- Now is better than never.
+- Although never is often better than *right* now.
+- If the implementation is hard to explain, it's a bad idea.
+- If the implementation is easy to explain, it may be a good idea.
+- Namespaces are one honking great idea -- let's do more of those!
+
+
+---
+
+# PEP 8 - Code lay-out
+
+This document gives coding conventions for the Python code comprising the
+standard library in the main Python distribution. Please see the companion
+informational PEP describing style guidelines for the C code in the C
+implementation of Python.
+
+- Always use four spaces to indent code. Do not use tabs, tabs introduce confusion and are best left out.
+- Wrap your code so that lines don’t exceed 79 characters. This helps users with small displays and makes it possible to have several code files open side by side on larger displays.
+- When vertical aligning text, there should be no arguments on the first line
+
+---
+
+# PEP 8 - Code lay-out
+
+```python
+# Good:
+my_list = [
+    1, 2, 3
+    4, 5, 6,
+]
+
+foo = long_function_name(
+    var_one, var_two,
+    var_three, var_four)
+
+# Bad:
+foo = long_function_name(var_one, var_two,
+    var_three, var_four)
+
+result = some_function_that_takes_arguments(
+'argument one',
+'argument two', 'argument three')
+```
+
+---
+
+# PEP 8 - Whitespace.
+
+- Use 2 blank lines around top level functions and classes.
+- Use 1 blank line to separate large blocks of code inside functions.
+- 1 blank line before class method definitions.
+- Avoid extraneous whitespace.
+- Use blank lines sparingly.
+- Always surround binary operators with a space on either side but group them sensibly.
+- Don’t use spaces in keyword arguments or default parameter values.
+- Don’t use whitespace to line up operators.
+- Multiple statements on the same line are discouraged.
+- Avoid trailing whitespace anywhere
+
+---
+
+# PEP 8 - Whitespace.
+
+```python
+# Good:
+x = 1
+y = 2
+long_variable = 3
+
+# Bad:
+x             = 1
+y             = 2
+long_variable = 3
+
+```
+
+---
+
+# PEP 8 - Whitespace.
+
+```python
+# Good:
+if x == 4: print x, y
+x, y = y, x
+spam(ham[1], {eggs: 2})
+
+# Bad:
+if x == 4 : print x , y
+x , y = y , x
+spam( ham[ 1 ], { eggs: 2 } )
+```
+
+---
+
+# PEP 8 - Whitespace.
+
+```python
+# Good:
+i = i + 1
+c = (a+b) * (a-b)
+hypot2 = x*x + y*y
+
+# Bad:
+i=i+1
+c = (a + b) * (a - b)
+hypot2 = x * x + y * y
+```
+
+---
+
+# PEP 8 - Whitespace.
+
+```python
+# Good:
+if foo == 'blah':
+    do_blah_thing()
+do_one()
+do_two()
+do_three()
+
+# Bad:
+if foo == 'blah': do_blah_thing()
+do_one; do_two(); do_three()
+```
+
+---
+
+# PEP 8 - Comments
+
+- Comments should be complete sentences in most cases.
+- Keep comments up to date
+- Write in “Strunk & White “English
+- Inline comments should be separated by at least two spaces from the statement and must start with ‘#’ and a single space.
+- Block comments should be indented to the same level as the code that follows them.
+- Each line in block comments starts with ‘#’.
+- Write docstrings for all public modules, functions, classes and methods.
+- Docstrings start and end with """ e.g """ A Docstring. """.
+- Single line docstrings can all be on the same line.
+- Docstrings should describe the method or function’s effect as a command.
+- Docstrings should end in a period.
+- When documenting a class, insert a blank line after the docstring.
+- The last """ should be on a line by itself
+
+---
+
+# PEP 8 - Comments
+
+```python
+def kos_root():
+    """Return the pathname of KOS root directory."""
+    global _kos_root
+    blah
+    blah
+
+def a_complex_function(parameter=False):
+    """
+    A multiline docstring.
+
+    Keyword arguments:
+    parameter -- an example parameter (default False)
+
+    """
+```
+
+---
+
+# PEP 8 - Imports
+
+- Don’t use wildcards.
+- Try to use absolute imports over relative ones
+- Don’t import multiple packages per line
+- When using relative imports, be explicit with (.)
+
+---
+
+# PEP 8 - Imports
+
+```python
+# Good:
+import os
+import sys
+from subprocess import Popen, PIPE
+
+import mypkg.sibling
+from mypkg import sibling
+from mypkg.sibling import example
+
+from . import sibling
+from .sibling import example
+
+# Bad:
+import os, sys # multiple packages
+import sibling # local module without "."
+from mypkg import * # wildcards
+```
+
+---
+
+# PEP 8 - Naming Conventions
+
+- Use CapWords/CamelCase convention for class names.
+- Use short, lowercase identifiers separated by underscores for modules and functions.
+- Always use “self” for the first argument to instance variables.
+- Always use “cls” for the first argument to class methods.
+- Constants should be in ALL_CAPS_WITH_UNDERSCORES.
+
+
+---
+
+# Finally
+
+**Clean code means less problems (and money)**
+
+\centerline{\includegraphics[height=180px]{imgs/psycho.png}}
 
 ----------------------------------------------------------------------
 
 # References
 
+-   https://goo.gl/Dnc7SF
 -   https://pip.pypa.io
 -   https://docs.python.org/3/library/shutil.html
 -   https://docs.python.org/3/library/statistics.html
