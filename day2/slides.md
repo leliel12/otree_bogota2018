@@ -1,6 +1,6 @@
 
 ---
-title:  Python Batteries - oTree Concepts - Tutorial #0
+title:  Python Batteries - oTree Concepts - Tutorial \#0
 author: Juan Cabral - jbc.develop@gmail.com
 date: Jan, 2018
 header-includes:
@@ -492,24 +492,20 @@ Index (PyPI)
 
 ```bash
 $ pip search otree
-cyw-bogus (0.4.24)             - oTree is a toolset that makes it easy to create and
-                                 administer web-based social science experiments.
-otree-boto2-shim (0.3.2)       - Shim package so that boto2 imports don't fail when using
-                                 oTree.
-otree-save-the-change (2.0.0)  - Automatically save only changed model data.
-otree-core (1.4.29)            - oTree is a toolset that makes it easy to create and
-                                 administer web-based social science experiments.
-otree-custom-export (0.0.4)    - customizing export options in oTree
+otree-boto2-shim (0.3.2)       - ...
+otree-save-the-change (2.0.0)  - Automatically ...
+otree-core (1.4.29)            - oTree is a ...
+otree-custom-export (0.0.4)    - customizing...
 otree-dulwich-windows (1.0)    -
-hiwi (0.1)                     - Integrate or share otree experiments with ease
-mongotree (0.1.3)              - Python module for tree structures in MongoDB
-mturkotreeutils (0.0.3)        - set of utilities for oTree and mTurk
+hiwi (0.1)                     - Integrate ...
+mongotree (0.1.3)              - Python ...
+mturkotreeutils (0.0.3)        - set ...
 otree (0.1)                    -
-scikit-otree (0.5)             - oTree integration to the scientific Python Stack
-otree-redwood (0.6.6)          - oTree extension for inter-page communication.
+scikit-otree (0.5)             - oTree ...
+otree-redwood (0.6.6)          - oTree...
 otreechat (0.2.1)              - oTree chat.
-otreeutils (0.2.3)             - A package with common oTree utilities
-ovmm (0.2.2)                   - ovmm manages your virtual machine for oTree.
+otreeutils (0.2.3)             - A package...
+ovmm (0.2.2)                   - ovmm manages...
 slider-task (0.1.1)            - oTree Slider Task.
 ```
 
@@ -534,6 +530,30 @@ $ pip install otree-core==1.4
 ```bash
 $ pip install -U otree-core
 ```
+
+---
+
+\centerline{\includegraphics[height=120px]{imgs/splash.png}}
+
+---
+
+# oTree
+
+oTree is a **framework** based on Python and Django that lets you build:
+
+-   **Homepage:** http://www.otree.org/
+-   Multiplayer strategy games, like the prisoner’s dilemma, public goods game, and auctions
+-   Controlled behavioral experiments in economics, psychology, and related fields
+-   Licensed under the **MIT open source license** with the added
+    requirement of a citation of the paper.
+
+quotation{
+>    Chen, D. L., Schonger, M., & Wickens, C. (2016).
+     oTree-An open-source platform for laboratory, online,
+     and field experiments.
+     Journal of Behavioral and Experimental Finance, 9,
+     88-97.}
+
 
 ---
 
@@ -567,7 +587,7 @@ through. For example:
 
 > if you had a 4-page public goods game followed by a 2-page questionnaire:
 
-\centerline{\includegraphics[height=110px]{imgs/session_subsession.png}}
+\centerline{\includegraphics[height=100px]{imgs/session_subsession.png}}
 
 If a game is repeated for multiple rounds, **each round is a subsession**.
 
@@ -619,7 +639,7 @@ In oTree, the terms “player” and “participant” have distinct meanings.
 The relationship between participant and player is the same as the
 relationship between session and subsession:
 
-\centerline{\includegraphics[height=110px]{imgs/participant_player.png}}
+\centerline{\includegraphics[height=50px]{imgs/participant_player.png}}
 
 A player is one participant in one particular subsession. A player is like a
 temporary “role” played by a participant. A participant can be player 2
@@ -630,6 +650,10 @@ in the first subsession, player 1 in the next subsession, and so on.
 # Enough Talk!
 
 \centerline{\includegraphics[height=110px]{imgs/lets-code.jpg}}
+
+- Open your console (Powershell, terminal, or any flaored pyton console)
+- Open an editor (PyCharm, SublimeText, Kate, Atom...)
+- Follow Me!
 
 
 ----------------------------------------------------------------------
