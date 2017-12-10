@@ -36,7 +36,7 @@ Python Characteristics. Why Python are used in Science?
 ### Day 3 - Tutorial #1 - oTree Objects - Web Technologies
 
 - **Tutorial #1:** Public goods game.
-- **Objetos en oTree:** Apps, Models, Views, Templates And Forms.
+- **oTree objects:** Apps, Models, Views, Templates And Forms.
 - CSS + Javascript (jQuery)
 
 
