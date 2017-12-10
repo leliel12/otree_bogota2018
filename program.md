@@ -11,7 +11,7 @@ Goals:
 - Test, debug and deploy oTree experiments.
 
 
-## Part 1: oTree y Python.
+## Part 1: oTree & Python.
 
 ### Day 1 - Python Fundamentals.
 
@@ -23,7 +23,7 @@ Python Characteristics. Why Python are used in Science?
   Classes and Instances. Inheritance.
 
 
-### Clase 2 - Python Batteries - oTree Concepts - Tutorial #0
+### Day 2 - Python Batteries - oTree Concepts - Tutorial #0
 
 - **Some builtins:** `datetime` (date and time management),
   `os` (operative system interaction),
@@ -33,11 +33,11 @@ Python Characteristics. Why Python are used in Science?
 - **Tutorial 0:** oTree Install and poll example.
 
 
-### Clase 3 - Git - Tutorial #1 - Objetos en oTree
+### Day 3 - Tutorial #1 - oTree Objects - Web Technologies
 
-- Breve introducción a control de versiones con Git.
 - **Tutorial #1:** Public goods game.
 - **Objetos en oTree:** Apps, Models, Views, Templates And Forms.
+- CSS + Javascript (jQuery)
 
 
 ### Clase 4 -  Conceptos de oTree #2 - Tutorial #2 - Bots.
@@ -66,6 +66,7 @@ Python Characteristics. Why Python are used in Science?
 
 ### Clase 7 - Despliegues y Mechanical Turk.
 
+- Breve introducción a control de versiones con Git.
 - **Despliegues:** Despliegues en Heroku y despliegues locales. Bases de datos
 en producción.
 - **MTurk:** Exponiendo el juego en mechanical turk.
