@@ -144,7 +144,6 @@ Since we have 2 templates, we need 2 Page classes in views.py
     -   A user can extend the framework - usually by selective overriding
     -   Users can extend the framework, but should not modify its code.
 
-
 ---
 
 # Understanding oTree
@@ -195,7 +194,22 @@ Since we have 2 templates, we need 2 Page classes in views.py
 
 \centerline{\includegraphics[height=180px]{imgs/django.png}}
 
+---
 
+# oTree is a **Full-Stack** **Web Framework** based on **Django**
+
+Django is a free and open-source web framework, written in Python, which
+follows the MVT architectural pattern. It is maintained by
+the Django Software Foundation (DSF), an independent organization.
+
+### Full stack is:
+
+-   Database
+-   Web Templates
+-   User Management
+-   URL Mapping
+
+\centerline{\includegraphics[height=50px]{imgs/django-logo.png}}
 
 
 ----------------------------------------------------------------------
@@ -203,3 +217,7 @@ Since we have 2 templates, we need 2 Page classes in views.py
 # References
 
 -   http://otree.readthedocs.io/en/latest/
+-   http://blog.easylearning.guru/implementing-mtv-model-in-python-django/
+-   https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
+-   https://en.wikipedia.org/wiki/Django_(web_framework)
+-   https://www.quora.com/What-is-a-Full-Stack-Web-framework
