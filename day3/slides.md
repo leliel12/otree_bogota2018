@@ -29,6 +29,8 @@ header-includes:
   multiplied by 2, and then divided evenly three ways and redistributed back to
   the players.
 
+\centerline{\includegraphics[height=110px]{imgs/money.png}}
+
 ---
 
 # Tutorial \#1: Public goods game.
@@ -125,6 +127,75 @@ Since we have 2 templates, we need 2 Page classes in views.py
 - Reset the database and run
 
 \centerline{\includegraphics[height=110px]{imgs/profit.png}}
+
+---
+
+# Understanding oTree
+
+## oTree is a **Framework**
+
+-   A Framwork is an abstraction in which software providing generic
+    functionality can be selectively changed by additional user-written code,
+    thus providing application-specific software
+-   Frameworks have key distinguishing features that separate them from normal
+    libraries:
+    -   The overall program's flow of control is not dictated by the caller,
+        but by the framework.
+    -   A user can extend the framework - usually by selective overriding
+    -   Users can extend the framework, but should not modify its code.
+
+
+---
+
+# Understanding oTree
+
+## oTree is a **Model-View-Controller** (MVC) Framework
+
+-   The **model** is the central component of the pattern. It expresses the application's behavior in terms of the problem domain, independent of the user interface.[6] It directly manages the data, logic and rules of the application.
+-   A **view** can be any output representation of information, such as a chart or a diagram. Multiple views of the same information are possible, such as a bar chart for management and a tabular view for accountants.
+-   The **controller**, accepts input and converts it to commands for the model or view
+
+---
+
+# Understanding oTree
+
+## oTree is a **Model-View-Controller** (MVC) Framework
+
+\centerline{\includegraphics[height=110px]{imgs/mvc.png}}
+
+---
+
+# Understanding oTree
+
+## oTree is a **Model-View-Controller** (MVC) Framework
+
+\centerline{\includegraphics[height=110px]{imgs/mvc.png}}
+
+**Wait!**
+
+---
+
+# Understanding oTree
+
+## ~~oTree is a **Model-View-Controller** (MVC) Framework~~
+## oTree is a **Model-View-Template** (MVT) Framework
+
+-   Model
+-   View => **controller**
+-   Template => **template**
+
+
+\centerline{\includegraphics[height=110px]{imgs/mvt.png}}
+
+---
+
+# Understanding oTree
+
+## ~~Django~~ oTree workflow
+
+\centerline{\includegraphics[height=110px]{imgs/django.png}}
+
+
 
 
 ----------------------------------------------------------------------
