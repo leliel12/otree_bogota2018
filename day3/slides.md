@@ -193,7 +193,7 @@ Since we have 2 templates, we need 2 Page classes in views.py
 
 ## ~~Django~~ oTree workflow
 
-\centerline{\includegraphics[height=110px]{imgs/django.png}}
+\centerline{\includegraphics[height=180px]{imgs/django.png}}
 
 
 
