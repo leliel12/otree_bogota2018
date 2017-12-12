@@ -384,6 +384,141 @@ class Subsession(BaseSubsession):
 -   **`get_groups()`**: Returns a list of all the groups in the subsession.
 -   **`get_players()`**: Returns a list of all the players in the subsession.
 
+---
+
+# oTree Models
+
+## Group class
+
+Each subsession can be further divided into groups of players; for example:
+
+> you could have a subsession with 30 players, divided into 15 groups of
+  2 players each. (Note: groups can be shuffled between subsessions.)
+
+---
+
+# oTree Models
+
+## Group class
+
+Here is a list of attributes and methods for group objects.
+
+-   **`session`** and **`subsession`**
+
+\centerline{\includegraphics[height=80px]{imgs/ssess-sess-group.png}}
+
+```python
+class Group(BaseGroup):
+    def set_payoff(self):
+        self.subsession.round_number
+
+```
+-   **`get_players()`**: Returns a list of all the players in the subsession
+
+---
+
+# oTree Models
+
+## Player class
+
+Here is a list of attributes and methods for player objects.
+
+-   **`group`**, **`session`** and **`subsession`**
+
+\centerline{\includegraphics[height=100px]{imgs/ssess-sess-group-ply.png}}
+
+-   **`id_in_group`** Integer starting from 1. In multiplayer games, indicates
+    whether this is player 1, player 2, etc.
+-   **`payoff`** The player’s payoff in this round.
+-   **`get_others_in_group()`**/**`get_others_in_subsession()`**
+    list of another players in this group/subsession.
+
+---
+
+# oTree Models
+
+## Player class
+
+-   **`role()`** You can define this method to return a string label of the
+    player’s role, usually depending on the player’s `id_in_group`.
+
+    For example:
+
+```python
+class Player(BasePlayer):
+    def role(self):
+       if self.id_in_group == 1:
+           return 'buyer'
+       if self.id_in_group == 2:
+           return 'seller'
+```
+-   Then you can use `group.get_player_by_role('seller')` to get player 2.
+-   Also, the player’s role will be displayed in the oTree admin interface, in
+    the “results” tab.
+
+
+---
+
+# oTree Models - **Internals**
+
+## Session class
+
+-   **`num_participants`**: The number of participants in the session.
+-   **`config`**: Dict-like from `settings.SESSION_CONFIGS`
+-   **`vars`**: Dict-like to store global variables that are the same for all
+    participants in the session
+
+\centerline{\includegraphics[height=100px]{imgs/sess.png}}
+
+---
+
+# oTree Models - **Internals**
+
+## Participant class
+
+
+-   **`vars`**: Dict-like to store global variables that are the same for the
+    participant in the session
+-   **`label`**:  It will be used to identify that participant in the oTree admin interface and the payments page, etc.
+-   **`id_in_session`**: The participant’s ID in the session.
+-   **`payoff`**: automatically stores the sum of payoffs from all subsessions
+    (sum of all `player.payoff`)
+-   **`payoff_plus_participation_fee()`**: participant’s total profit
+
+\centerline{\includegraphics[height=90px]{imgs/participant.png}}
+
+---
+
+# Interlude - How oTree executes your code
+
+-   Any code that is not inside a method is basically global and will only be executed once – when the server starts.
+
+```python
+class Constants(BaseConstants):
+
+    heads_probability = random.random() # wrong
+
+
+class Player(BasePlayer):
+
+    heads_probability = models.FloatField(
+        initial=random.random())  # wrong
+
+```
+
+---
+
+# Interlude - How oTree executes your code
+
+- The solution is to generate the random variables inside a method, such as creating_session.
+
+```python
+class Subsession(BaseSubsession):
+
+    def creating_session(self):
+        for p in self.get_players():
+            p.heads_probability = random.random()
+```
 
 ----------------------------------------------------------------------
 
