@@ -1,6 +1,6 @@
 
 ---
-title:  Tutorial \#1 - oTree Objects - Web Technologies
+title:  Tutorial \#1 - oTree Objects
 author: Juan Cabral - jbc.develop@gmail.com
 date: Jan, 2018
 pandoc-latex-fontsize:
@@ -210,6 +210,179 @@ the Django Software Foundation (DSF), an independent organization.
 -   URL Mapping
 
 \centerline{\includegraphics[height=50px]{imgs/django-logo.png}}
+
+---
+
+# oTree vs Django
+
+**oTreee IS Django** with some logic already defined
+
+-   The domain object model (DOM) is already defined.
+-   The URL mapping is automatic generted from `settings.SESSION_CONFIG`
+    and `views.page_sequence`.
+-   The Page and WaitPages.
+-   The test bots (this is for tomorrow)
+
+\centerline{\includegraphics[height=90px]{imgs/oPd.png}}
+
+---
+
+# oTree Models
+
+-   Defined in `models.py`
+-   Is where you define your app’s data models:
+    -   Subsession
+    -   Group
+    -   Player
+-   **Remember:** A player is part of a group, which is part of a subsession.
+
+---
+
+# oTree Models
+
+## Model-Fields
+
+-   The main purpose of `models.py` is to define the columns of your database
+    tables. Let’s say you want your experiment to generate data that looks
+    like this:
+
+    \centerline{\includegraphics[height=65px]{imgs/model-fields.png}}
+-   Here is how to define the above table structure:
+
+```python
+class Player(BasePlayer):
+    name = models.CharField()
+    age = models.IntegerField()
+    is_student = models.BooleanField()
+```
+
+---
+
+# oTree Models
+
+## Model-Fields Considerations
+
+-   When you run otree resetdb, it will scan your models.py and create your
+    database tables accordingly. (Therefore, you need to run resetdb if you
+    have added, removed, or changed a field in models.py.)
+
+---
+
+# oTree Models
+
+## Model-Fields List
+
+-   The full list of available fields is in the **Django documentation**.
+-   The most commonly used ones are:
+    -   **CharField/TextField** (for text)
+    -   **FloatField** (for real numbers)
+    -   **BooleanField** (for true/false values)
+    -   **IntegerField**, and **PositiveIntegerField**.
+-   Additionally, oTree has **CurrencyField**
+
+
+---
+
+# oTree Models
+
+## Model-Fields Configuration
+
+-   Any field you define will have the initial value of `None`.
+-   If you want to give it an initial value, you can use `initial=`:
+
+```python
+class Player(BasePlayer):
+    some_number = models.IntegerField(initial=0)
+```
+
+-   Any numeric field support a minimun and maximun limits
+```python
+offer = models.IntegerField(min=12, max=24)
+```
+-   Also any field support a selection from a set of values
+```python
+level = models.IntegerField(choices=[1, 2, 3])
+```
+
+---
+
+# oTree Models
+
+## Constant class
+
+-   The Constants class is the recommended place to put your app’s
+    parameters and constants that do not vary from player to player.
+-   Here are the required constants:
+
+    -   **`name_in_url`**: the name used to identify your app in the
+        participant’s URL.
+
+        For example, if you set it to public_goods, a participant’s
+        URL might look like this:
+
+        **`http://host.com/p/zuzepona/public_goods/Introduction/1/`**
+
+    -   **`players_per_group`**: described in Groups.
+    -   **`num_rounds`**: described in Rounds.
+
+---
+
+# oTree Models - Subsession class
+
+**A session is a series of subsessions**; subsessions are the “sections” or
+“modules” that constitute a session. For example:
+
+>   if a session consists of a public goods game followed by a questionnaire:
+
+>       - the public goods game would be subsession 1
+>       - and the questionnaire would be subsession 2.
+
+In turn, each subsession is a sequence of pages the user must navigate
+through. For example:
+
+> if you had a 4-page public goods game followed by a 2-page questionnaire:
+
+\centerline{\includegraphics[height=50px]{imgs/session_subsession.png}}
+
+If a game is repeated for multiple rounds, **each round is a subsession**.
+
+---
+
+# oTree Models
+
+## Subsession class
+
+Here is a list of attributes and methods for subsession objects.
+
+-   **`session`** The session this subsession belongs to
+
+\centerline{\includegraphics[height=105px]{imgs/ssess-sess.png}}
+
+-   **`round_number`**: Gives the current round number. Only relevant if
+    the app has multiple rounds (set in Constants.num_rounds).
+
+---
+
+# oTree Models
+
+## Subsession class
+
+-   **`creating_session()` Method**: This method is executed when the admin
+    clicks “create session”
+
+    -   allows you to initialize the round, by setting initial values on fields
+        players, groups, participants, or the subsession. For example:
+
+```python
+class Subsession(BaseSubsession):
+
+    def creating_session(self):
+        for p in self.get_players():
+            p.some_field = some_value
+```
+
+-   **`get_groups()`**: Returns a list of all the groups in the subsession.
+-   **`get_players()`**: Returns a list of all the players in the subsession.
 
 
 ----------------------------------------------------------------------

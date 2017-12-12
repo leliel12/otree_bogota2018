@@ -33,11 +33,10 @@ Python Characteristics. Why Python are used in Science?
 - **Tutorial 0:** oTree Install and poll example.
 
 
-### Day 3 - Tutorial #1 - oTree Objects - Web Technologies
+### Day 3 - Tutorial #1 - oTree Objects
 
 - **Tutorial #1:** Public goods game.
 - **oTree objects:** Apps, Models, Views, Templates And Forms.
-- CSS + Javascript (jQuery)
 
 
 ### Clase 4 -  Conceptos de oTree #2 - Tutorial #2 - Bots.
