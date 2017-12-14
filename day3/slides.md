@@ -520,6 +520,666 @@ class Subsession(BaseSubsession):
             p.heads_probability = random.random()
 ```
 
+---
+
+# oTree Views
+
+## `Page` class.
+
+Each page that your players see is defined by a **`Page`** class in
+**`views.py`**
+
+\centerline{\includegraphics[height=150px]{imgs/page.png}}
+
+
+
+---
+
+# oTree Views
+
+## `Page` class.
+
+-   Here is where the logic of your experiment lives.
+-   In oTree context “views” is basically a synonym for “pages”.
+-   Your **`views.py`** must have a **`page_sequence`** variable that gives
+    the order of the pages. For example:
+
+```python
+page_sequence = [Start, Offer, Accept, Results]
+```
+
+---
+
+# oTree Views
+
+## `Page.is_displayed()` method
+
+-   You can define this function to return `True` if the page should be shown,
+    and `False` if the page should be skipped. If omitted, the page will be
+    shown.
+
+    For example, to only show the page to P2 in each group:
+
+```python
+class Page1(Page):
+    def is_displayed(self):
+        return self.player.id_in_group == 2
+```
+
+- Or only show the page in round 1:
+
+```python
+class Page1(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+```
+
+---
+
+# oTree Views
+
+## `Page.vars_for_template()` method
+
+-   You can use this to return a dictionary of variable names and their values, which is passed to the template. Example:
+
+```python
+class Page1(Page):
+    def vars_for_template(self):
+        return {'a': 1 + 1,
+                'b': self.player.foo * 10}
+```
+
+-   Then in the template you can access a and b like this:
+
+```javascript
+Variables {{ a }} and {{ b }} ...
+```
+
+---
+
+# oTree Views
+
+## `Page.vars_for_template()` method
+
+-   oTree automatically passes the following objects to the template:
+    **`player`**, **`group`**, **`subsession`**, **`participant`**,
+    **`session`**, and **`Constants`**.
+-   You can access them in the template like this:
+
+```javascript
+    {{ Constants.blah }} or {{ player.blah }}
+```
+
+- **Warning** vars_for_template executes every time the page is reloaded.
+
+---
+
+# oTree Views
+
+## `Page.before_next_page()` method
+
+-   Here you define any code that should be executed after form validation,
+    before the player proceeds to the next page.
+-   If the page is skipped with **`is_displayed`**, then
+    **`before_next_page`** will be skipped as well.
+-   Example:
+
+-   oTree automatically passes the following objects to the template:
+    **`player`**, **`group`**, **`subsession`**, **`participant`**,
+    **`session`**, and **`Constants`**.
+-   You can access them in the template like this:
+
+```python
+class Page1(Page):
+    def before_next_page(self):
+        self.group.set_payoff()
+```
+
+---
+
+# oTree Views
+
+## `Page.template_name` attribute
+
+-   Each Page should have a file in **`templates/`** with the same name.
+    For example, if your app has this page **`in my_app/views.py`**:
+
+```python
+class Page1(Page):
+    ...
+```
+
+-   Then you should create a file **`my_app/templates/my_app/Page1.html`**,
+    (note that my_app is repeated).
+-   If the template needs to have a different name from your view class,
+    set `template_name`
+
+```python
+class Page1(Page):
+    template_name = 'app_name/MyView.html'
+```
+
+
+---
+
+# oTree Templates
+
+-   Your app’s **`templates/`** directory will contain the templates for the
+    HTML that gets displayed to the player.
+-   oTree uses Django’s template system.
+-   Django's templates it’s designed to feel comfortable to those used to
+    working with HTML.
+
+---
+
+# oTree Templates
+
+## HTML vs. Building Blocks
+
+-   Right click on any webpage and select "source code"
+-   Any HTML starts with something like this
+
+```html
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <!-- and so on... -->
+```
+
+---
+
+# oTree Templates
+
+## HTML vs. Building Blocks
+
+-   Instead of writing the full HTML of your page, You define 2 blocks:
+
+```javascript
+{% block title %} Title goes here {% endblock %}
+
+{% block content %}
+    Body HTML goes here.
+    {% formfield player.contribution
+        label="What is your contribution?" %}
+    {% next_button %}
+{% endblock %}
+```
+
+---
+
+# oTree Templates
+
+## Disclaimer
+
+> HighCharts, CSS and Javascript are not part of this course.
+
+\centerline{\includegraphics[height=150px]{imgs/no.png}}
+
+
+---
+
+# oTree Templates
+
+## Static content (images, videos, CSS, JavaScript)
+
+-   To include static files (.png, .jpg, .mp4, .css, .js, etc.) in your pages,
+    make sure your template has  at the top.
+
+```javascript
+    {% load staticfiles %}
+```
+
+-   Then create a **`static/`** folder in your app (next to **`templates/`**).
+-   Like **`templates/`** it should also have a subfolder with your app’s name,
+    e.g. **`static/my_app`**.
+-   Put your files in that subfolder. You can then reference them in a template
+    like this:
+
+```html
+<img src="{% static 'my_app/my_image.png' %}"/>
+```
+
+---
+
+# oTree Templates
+
+## Static content (images, videos, CSS, JavaScript)
+
+-   If the file is used in multiple apps, you can put it in
+    **`_static/global/`**, then do:
+
+```html
+<img src="{% static 'global/my_image.png' %}"/>
+```
+---
+
+# oTree Templates
+
+## Static content (images, videos, CSS, JavaScript)
+
+-   If the image/video path is variable (like showing a different image each
+    round), you can construct it in `views.py` and pass it to the template,
+    e.g.:
+
+```python
+class MyPage(Page):
+    def vars_for_template(self):
+        path = 'my_app/{}.png'.format(self.round_number)
+        return {'image_path': image_path},
+```
+
+-   And then in the template `MyPage.html`:
+
+```javascript
+<img src="{% static image_path %}"/>
+```
+
+---
+
+# oTree Templates
+
+## Mobile devices
+
+-   oTree’s HTML interface is based on Bootstrap, which works on any modern
+    browser (Chrome/Internet Explorer/Firefox/Safari).
+-   Bootstrap also tries to shows a “mobile friendly” version when viewed on a
+    smartphone or tablet.
+
+\centerline{\includegraphics[height=150px]{imgs/bootstrap.png}}
+
+
+---
+
+# oTree Templates
+
+## Template filters
+
+-   In addition to the filters available with Django’s template language, oTree
+    has the **`|c`** filter, which is equivalent to the **`c()`** function.
+    For example, to displays as 20 whatever-is-your-currency.
+
+```javascript
+{{ 20|c }}
+```
+-   Also, the **`|abs`** filter lets you take the absolute value. So, doing
+    **`{{ -20|abs }}`** would output **20**.
+
+---
+
+# oTree Forms
+
+-   Each page in oTree can contain a form.
+-   To create a form,
+    1.  Go to `models.py` and define fields on your `Player` or `Group`.
+    2.  Then, in your *Page* class, you can choose which of these fields to
+        include in the form You do this by:
+        a.  setting **`form_model = models.Player`**, or
+            **`form_model = models.Group`**,
+        b.  and then set **`form_fields`** to
+            the list of fields you want in your form.
+
+-   When the user submits the form, the submitted data is automatically saved
+    to the field in your model.
+
+---
+
+# oTree Forms
+
+For example, here is a models.py:
+
+```python
+class Group(BaseGroup):
+    f1 = models.BooleanField()
+    f2 = models.BooleanField()
+
+class Player(BasePlayer):
+    f1 = models.BooleanField()
+    f2 = models.BooleanField()
+```
+
+And a corresponding views.py that defines the form on each page:
+
+```python
+class Page1(Page):
+    form_model = models.Player
+    form_fields = ['f1', 'f2'] # player.f1, player.f2
+
+class Page2(Page):
+    form_model = models.Group
+    form_fields = ['f1', 'f2'] # group.f1, group.f2
+```
+
+
+---
+
+# oTree Forms
+
+## Forms in templates
+
+- You should include form fields by using a **`{% formfield %}`** element:
+
+```javascript
+{% formfield player.contribution
+    label="How much do you want to contribute?" %}
+```
+
+---
+
+# oTree Forms
+
+## Forms in templates
+
+- An alternative to using label is to define **`verbose_name`** on the model field:
+
+```python
+class Player(BasePlayer):
+  contribution = models.CurrencyField(
+   verbose_name="How much do you want to contribute?")
+```
+
+- Then you can just put this in your template:
+
+```javascript
+{% formfield player.contribution %}
+```
+
+---
+
+# oTree Forms
+
+## Forms in templates
+
+- If you have multiple form fields, you can insert them all at once:
+
+```javascript
+{% for field in form %}
+    {% formfield field %}
+{% endfor %}
+```
+
+- also  you can simple write
+
+```javascript
+{{ form }}  # the Django way
+```
+
+---
+
+# oTree Forms
+
+## Simple form field validation
+
+- The player must submit a valid form before they go to the next page.
+- If the form they submit is invalid (e.g. missing or incorrect values),
+  it will be re-displayed to them along with the list of errors they need to
+  correct.
+
+### Error 1
+
+\centerline{\includegraphics[height=80px]{imgs/error1.png}}
+
+---
+
+# oTree Forms
+
+## Simple form field validation
+
+### Error 2
+
+\centerline{\includegraphics[height=100px]{imgs/error2.png}}
+
+-   oTree automatically validates all input submitted by the user.
+-   For example, if you have a form containing a **`IntegerField`**,
+    oTree will not let the user submit values that are not positive
+    integers, like **`-1`** , **`1.5`**, or **`hello`**.
+-   oTree also checks **`min`**, **`max`** and **`choices`** attributes
+    in models.
+
+---
+
+# oTree Forms
+
+## Simple form field validation - Choices
+
+- If you want a field to be a dropdown menu with a list of choices, set **`choices=`**:
+
+```python
+# in models.py
+level = models.IntegerField(
+    choices=[1, 2, 3],
+)
+```
+
+-   To use radio buttons instead of a dropdown menu, you should set the widget
+    to **`RadioSelect`** or **`RadioSelectHorizontal`**:
+
+```python
+# in models.py
+level = models.IntegerField(
+    choices=[1, 2, 3],
+    widget=widgets.RadioSelect)
+```
+
+---
+
+# oTree Forms
+
+## Simple form field validation - Choices
+
+-   You can also set display names for each choice by making a list of
+    **`[value, display]`** pairs:
+```python
+# in models.py
+level = models.IntegerField(
+    choices=[
+        [1, 'Low'],
+        [2, 'Medium'],
+        [3, 'High']])
+```
+
+-   If you do this, users will just see a menu with “Low”, “Medium”, “High”,
+    but their responses will be recorded as 1, 2, or 3.
+-   After the field has been set, you can access the human-readable name using
+    get_FOO_display , like this: **`self.get_level_display()`**
+
+
+---
+
+# oTree Forms
+
+## Simple form field validation - Optional fields
+
+-   If a field is optional, you can use **`blank=True`**, Then the HTML field
+    will not have the required attribute.
+
+```python
+# in models.py
+offer = models.IntegerField(blank=True)
+```
+
+
+---
+
+# oTree Forms
+
+## Dynamic form field validation
+
+-   The min, max, and choices described above are only for fixed (constant) values.
+-   If you want them to be determined dynamically (e.g. different from
+    player to player), then you can instead define one of the next methods
+    in your Page class in views.py.
+
+---
+
+# oTree Forms
+
+## Dynamic form field validation - **`{field_name}_choices()`**
+
+-   Like setting **`choices=`** in models.py,
+    this will set the choices for the form field
+    (e.g. the dropdown menu or radio buttons).
+
+Example:
+
+```python
+class MyPage(Page):
+
+    form_model = models.Player
+    form_fields = ['offer']
+
+    def offer_choices(self):
+        return currency_range(
+            0, self.player.endowment, 1)
+```
+
+---
+
+# oTree Forms
+
+## Dynamic form field validation - **`{field_name}_max()`**
+
+The dynamic alternative to setting **`max=`** in `models.py`. For example:
+
+```python
+class MyPage(Page):
+
+    form_model = models.Player
+    form_fields = ['offer']
+
+    def offer_max(self):
+        return self.player.endowment
+```
+
+---
+
+# oTree Forms
+
+## Dynamic form field validation - **`{field_name}_min()`**
+
+- The dynamic alternative to setting **`min=`** in `models.py`.
+
+```python
+class MyPage(Page):
+
+    form_model = models.Player
+    form_fields = ['offer']
+
+    def offer_max(self):
+        return self.player.endowment * .1
+```
+
+
+---
+
+# oTree Forms
+
+## Dynamic form field validation - **`{field_name}_error_message()`**
+
+-   This is the most flexible method for validating a field.
+-   For example, let’s say your form has an integer field called
+    **`odd_negative`**, which must be odd and negative. You would enforce
+    this as follows:
+
+```python
+class MyPage(Page):
+
+    form_model = models.Player
+    form_fields = ['odd_negative']
+
+    def odd_negative_error_message(self, value):
+        is_odd = (value % 2 == 1)
+        is_negative = (value < 0)
+        if not (is_odd and is_negative):
+            return 'Must be odd and negative'
+```
+
+---
+
+# oTree Forms
+
+## Dynamic form field validation - Validating multiple fields together
+
+-   Let’s say you have 3 integer fields in your form whose names are
+    **`int1`**, **`int2`**, and **`int3`**, and the values submitted must
+    **sum to 100**. You can enforce this with the error_message method:
+
+```python
+class MyPage(Page):
+
+    form_model = models.Player
+    form_fields = ['int1', 'int2', 'int3']
+
+    def error_message(self, values):
+       total = (
+           values["int1"] + values["int2"] +
+           values["int3"])
+       if total != 100:
+           return 'The numbers must add up to 100'
+```
+
+---
+
+# oTree Forms
+
+## Determining form fields dynamically
+
+-   If you need the list of form fields to be dynamic, instead of **`form_fields`**
+    you can define a method **`get_form_fields(self)`** that returns the list.
+    For example:
+
+```python
+class MyPage(Page):
+    form_model = models.Player
+    def get_form_fields(self):
+        if self.player.num_bids == 3:
+            return ['bid_1', 'bid_2', 'bid_3']
+        else:
+            return ['bid_1', 'bid_2']
+```
+
+-   **WARNING:** if you do this, you must make sure your template also contains
+    conditional logic so that the right formfield elements are included.
+
+---
+
+# oTree Forms
+
+## Determining form fields dynamically
+
+- You can do this by looping through each field in the form. oTree passes a
+  variable form to each template, which you can loop through like this:
+
+```javascript
+{% for field in form %}
+    {% formfield field %}
+{% endfor %}
+```
+<!-- in your HTML template -->
+
+-   If you use this technique, you should consider setting verbose_name on your
+    model fields (see Forms in templates).
+
+---
+
+# oTree Forms
+
+## Widgets
+
+-   The full list of form input widgets offered by Django is here.
+    https://docs.djangoproject.com/en/1.7/ref/forms/widgets/#built-in-widgets
+-   oTree additionally offers:
+
+    -   **`RadioSelectHorizontal`**: same as RadioSelect but with a horizontal
+        layout
+    -   **`SliderInput`**
+
+        -   To specify the step size, do:
+            **`SliderInput(attrs={'step': '0.01'})`**
+        -   To disable the current value from being displayed, do:
+            **`SliderInput(show_value=False)`**
+
+
 ----------------------------------------------------------------------
 
 # References
