@@ -39,11 +39,11 @@ Python Characteristics. Why Python are used in Science?
 - **oTree objects:** Apps, Models, Views, Templates And Forms.
 
 
-### Clase 4 -  Conceptos de oTree #2 - Tutorial #2 - Bots.
+### Day 4 -  oTree Concepts #2 - Tutorial #2 - Bots.
 
 - **Tutorial #2:** Trust Game.
-- **Conceptos:** Grupos y juegos multiplayer. Puntos y dinero. Tratamientos.
-  Rounds y salas.
+- **Concepts:** Groups and multiplayer games. Points and money. Treatments
+  Rounds and rooms.
 - Testing.
 
 
