@@ -44,7 +44,6 @@ Python Characteristics. Why Python are used in Science?
 - **Tutorial #2:** Trust Game.
 - **Concepts:** Groups and multiplayer games. Points and money. Treatments
   Rounds and rooms.
-- Testing.
 
 
 ## Parte 2: oTree Avanzado.
@@ -57,10 +56,11 @@ Python Characteristics. Why Python are used in Science?
 - **Tutorial #3:** Matching Pennies.
 
 
-### Clase 6 - Experimentos Reales Complejos.
+### Clase 6 - Experimentos Reales Complejos y Testing.
 
 - **Real Effort:** Particularidad: generación de texto dentro de imágenes.
 - **Toilet Game:** Particularidad: incluye un chat rudimentario.
+- - Testing.
 
 
 ### Clase 7 - Despliegues y Mechanical Turk.
