@@ -735,6 +735,419 @@ class Player(BasePlayer):
     any of the models (Player, Group, Subsession, etc.).
 
 
+---
+
+# oTree Concepts \#2 - Treatments
+
+-   To assign participants to different treatment groups, you can put the
+    code in the subsession’s **`creating_session`** method
+-   For example, if you want some participants to be in a **“blue”** treatment
+    group and others to be in a **“red”** treatment group, first define a
+    color field on the Player model:
+
+```python
+class Player(BasePlayer):
+    color = models.CharField()
+```
+
+-   Then you can assign to this field randomly:
+
+
+```python
+class Subsession(BaseSubsession):
+
+  def creating_session(self):
+    for player in self.get_players():
+      player.color = random.choice(['blue', 'red'])
+
+```
+
+---
+
+# oTree Concepts \#2 - Treatments
+
+-   If your game has multiple rounds, the above code gets executed for
+    each round.
+-   So if you want to ensure that participants are assigned to the same
+    treatment group each round, you should set the property at the
+    participant level, which persists across subsessions, and only set
+    it in the first round:
+
+```python
+class Subsession(BaseSubsession):
+  def creating_session(self):
+    if self.round_number == 1:
+      for p in self.get_players():
+        color = random.choice(['blue', 'red'])
+        p.participant.vars['color'] = color
+```
+
+- Then elsewhere in your code, you can access the participant’s color
+  with **`self.participant.vars['color']`**.
+
+
+---
+
+# oTree Concepts \#2 - Treatments
+
+-   The above code makes a random drawing independently for each player,
+    so you may end up with an imbalance between “blue” and “red”.
+-   To solve this, you can use itertools.cycle, which alternates. :
+
+```python
+import itertools
+
+class Subsession(BaseSubsession):
+
+    def creating_session(self):
+        colors = itertools.cycle(['blue', 'red'])
+        for p in self.get_players():
+            p.color = next(colors)
+```
+
+---
+
+# oTree Concepts \#2 - Treatments
+## Choosing which treatment to play
+
+-   In the above example, players got randomized to treatments.
+-   But it is often useful to choose explicitly which treatment to play.
+-   You can create 2 session configs in settings.py that have the same
+    keys to session config dictionary, except the treatment key:
+
+```python
+SESSION_CONFIGS = [
+    {'name':'my_game_blue',
+     # other arguments...
+     'treatment':'blue'},
+    {'name':'my_game_red',
+     # other arguments...
+     'treatment':'red'}
+]
+```
+
+---
+
+# oTree Concepts \#2 - Treatments
+## Choosing which treatment to play
+
+-   Then in the **`creating_session`** method, you can check which of the 2
+    session configs it is:
+
+```python
+def creating_session(self):
+    for p in self.get_players():
+        if 'treatment' in self.session.config:
+            # demo mode
+            p.color = self.session.config['treatment']
+        else:
+            # live experiment mode
+            p.color = random.choice(['blue', 'red'])
+```
+
+-   Then, when someone visits your demo page, they will see the **“red”** and
+    **“blue”** treatment.
+-   If the demo argument is not passed, the color is randomized.
+
+---
+
+# oTree Concepts \#2 - Rooms
+
+oTree lets you configure “rooms”, which provide:
+
+-   Persistent links that you can assign to participants or workstations.
+-   A “waiting room” that lets you see how many people are waiting to start a
+    session.
+-   Short links that are easy for participants to type
+
+\centerline{\includegraphics[height=150px]{imgs/room-combined.png}}
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Creating rooms
+
+-   You can create multiple rooms – say, for for different classes you teach,
+    or different labs you manage.
+-   To create a room, add to your **`settings.py`** a setting **`ROOMS`**
+    (and, optionally, **`ROOM_DEFAULTS`**).
+-   **`ROOMS`** should be a list of dictionaries; each dictionary defines
+    the configuration of a room.
+
+```python
+ROOM_DEFAULTS = {}
+
+ROOMS = [
+    {'name': 'econ101',
+     'display_name': 'Econ 101 class',
+     'participant_label_file': 'econ101.txt'
+    },
+    {'name': 'econ_lab',
+     'display_name': 'Experimental Economics Lab'}]
+```
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Creating rooms - Available properties
+
+-   **`name`** and **`display_name`** (required)
+    The internal name and display name, respectively.
+-   **`participant_label_file`** (optional)
+    A path to a text file with the “guest list” for this room.
+    Path can be either absolute or relative to the project’s root directory.
+    The file should contain one participant label per line. For example:
+
+```
+PC_1
+PC_2
+PC_3
+...
+```
+
+If you omit **`participant_label_file`**, then anyone can join as long as
+they know the room-wide URL.
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Creating rooms - Available properties:
+
+-   **`use_secure_urls`** (optional)
+    This setting provides an extra layer of security on top of the
+    participant_label_file. For example, if you are not using secure URLs,
+    your start URLs would look something like this:
+
+```
+http://host/room/econ101/?participant_label=Student1
+http://host/room/econ101/?participant_label=Student2
+```
+
+The issue is that if Student1 is mischievous, he might change his
+URL’s participant_label from “Student1” to “Student2”, so that he can
+impersonate playing as Student2.
+
+However, if you set **`'use_secure_urls': True`**, oTree will add a
+unique secret key to each participant’s URLs, like this:
+
+```
+...?participant_label=Student1&hash=29cd655f
+...?participant_label=Student1&hash=46d9f31d
+```
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Using rooms
+
+In the admin interface, click “Rooms” in the header bar, and click the
+room you created. Scroll down to the section with the participant URLs.
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Using rooms - If you have a **`participant_label_file`**
+
+-   Have each participant open the URLs. Then, in the room’s admin page,
+    check how many people are present, and create a session for that
+    number of people.
+-   You can either use the room-wide URL, or the participant-specific URLs.
+-   The participant-specific URLs already contain the participant label, so
+    as soon as they are clicked, the participant will go straight to the
+    waiting page. For example one participant can open URL
+    **`http://.../?participant_label=Student1`**
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Using rooms - If you have a **`participant_label_file`**
+
+-   Or, you can give both students the room-wide URL, which does not contain
+    participant_label: **`http://127.0.0.1:8000/room/econ101/`**
+-   and when a user clicks the room-wide URL, they are prompted to enter
+    their participant label:
+
+\centerline{\includegraphics[height=120px]{imgs/room-combined.png}}
+
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Using rooms - If you don’t have a **`participant_label_file`**
+
+-   Starting is simple; just have each participant open the room-wide URL.
+    Have each participant open the URLs.
+-   Then, in the room’s admin page, check how many people are present, and
+    create a session for that number of people.
+-   Although this option is simple, it is less reliable than using
+    participant labels, because someone could easily play twice by opening
+    the URL in 2 browser tabs.
+
+---
+
+# oTree Concepts \#2 - Rooms
+## Using rooms - Reusing for multiple sessions
+
+-   Room URLs are designed to be reused across sessions.
+-   In a lab, you can set the room URL (either room-wide or
+    participant-specific) as the browser’s home page.
+-   In classroom experiments, you can give each student the room-wide
+    URL they can use repeatedly during the semester.
+
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## Money
+
+-   In many experiments, participants play for currency: either real money, or
+    points.
+-   oTree supports both
+-   You can switch from points to real money by
+    setting **`USE_POINTS = False`** in **`settings.py`**.
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## Money
+
+-   If you have a value that represents an amount of currency (either points
+    or dollars, etc), you should mark it with **`c()`**, e.g.
+
+```python
+c(1) + c(0.2) == c(1.2)
+```
+
+-   The advantage is that when it’s displayed to users, it will automatically
+    formatted as **$1.20** or **1,20 €**, etc., depending on your
+    **`REAL_WORLD_CURRENCY_CODE`** and **`LANGUAGE_CODE`** settings.
+-   Money amounts are displayed with 2 decimal places by default; you can
+    change this with the setting **`REAL_WORLD_CURRENCY_DECIMAL_PLACES`**.
+    (If you change the number of decimal places, you must resetdb.)
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+
+-   If a model field is a currency amount, you should define it as a
+    **`CurrencyField`**.
+
+```python
+class Player(BasePlayer):
+    random_bonus = models.CurrencyField()
+    def some_method(self):
+        self.random_bonus = c(random.randint(1, 10))
+```
+
+-   **NOTE:** instead of using Python’s built-in range function, you should
+    use oTree’s **`currency_range`**
+
+```python
+class Player(BasePlayer):
+  contribution = models.CurrencyField(
+    choices=currency_range(c(0), c(0.10), c(0.02)))
+    # [$0.00, $0.02, $0.04, $0.06, $0.08, $0.10]
+```
+
+-   **`currency_range`** takes 3 arguments (start, stop, step), just like range.
+    However, unlike range(), the returned list includes the stop value as
+    shown above.
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## Money
+
+-   In templates use the |c filter. For example, **`{{ 20|c }}`** displays as
+    **20 points**.
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## payoffs
+
+-   Each player has **` payoff`** field, which is a **`CurrencyField`**. If your
+    player makes money, you should store it in this field.
+-   **`self.participant.payoff`** automatically stores the sum of payoffs from all
+    subsessions.
+-   You can modify self.participant.payoff directly, e.g. to round the final
+    payoff to a whole number.
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## payoffs
+
+- At the end of the experiment, a participant’s total profit can be accessed by
+
+```python
+self.participant.payoff_plus_participation_fee()
+```
+
+-   it is calculated by  converting **`self.participant.payoff`** to
+    real-world currency (if **`USE_POINTS`** is **`True`**),
+    and then adding **`self.session.config['participation_fee']`**.
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## payoffs - Points (i.e. “experimental currency”)
+
+-   Sometimes it is preferable for players to play games for points or
+    “experimental currency units”, which are converted to real money at the
+    end of the session.
+-   You can set **`USE_POINTS = True`** in **`settings.py`**, and then in-game
+    currency amounts will be expressed in points rather than dollars or euros,
+    etc.
+
+>   c(10) is displayed as 10 points.
+
+-   To change the exchange rate to real money, go to **`settings.py`** and set
+    **`real_world_currency_per_point`** in the session config.
+-   For example, if you pay the user 2 cents per point, you would set
+
+```python
+'real_world_currency_per_point': 0.02
+```
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## payoffs - Points (i.e. “experimental currency”)
+
+-   Points are integers by default.
+-   You can change this by setting **`POINTS_DECIMAL_PLACES = 2`**, or
+    whatever number of decimal places you desire.
+-   If you change the number of decimal places, you must resetdb.
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## payoffs - Points (i.e. “experimental currency”)
+
+-   If you switch your language setting to one of oTree’s supported languages,
+    the name “points” is automatically translated, e.g. “puntos” in Spanish.
+-   To further customize the name “points” to something else like “tokens” or
+    “credits”, set **`POINTS_CUSTOM_NAME`**, e.g.
+
+```python
+POINTS_CUSTOM_NAME = 'tokens
+```
+
+---
+
+# oTree Concepts \#2 - Money & Payoffs
+## payoffs - Points (i.e. “experimental currency”)
+
+-   You can convert a points amount to money using the method:
+
+```python
+>>> c(10).to_real_world_currency(self.session)
+$0.20
+```
+
+-   It requires self.session to be passed, because different sessions can have
+    different conversion rates).
 
 ----------------------------------------------------------------------
 
