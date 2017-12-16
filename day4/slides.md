@@ -73,6 +73,8 @@ We need 3 pages:
 -   Add an entry to **`SESSION_CONFIGS`** in **`settings.py`**
 -   Reset the database and run.
 
+\centerline{\includegraphics[height=150px]{imgs/setup_and_run.png}}
+
 ---
 
 # oTree Concepts \#2.
