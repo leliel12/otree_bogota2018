@@ -484,6 +484,258 @@ round.
 -   If you need further control on arranging players into groups, use
     **`get_players_for_group().`**
 
+---
+
+# oTree Concepts \#2 - Wait pages
+## Methods - **`get_players_for_group()`**
+
+-   If you’re using **`group_by_arrival_time`** and want more control over which players
+    are assigned together, you can use **`get_players_for_group()`**.
+-   Let’s say that in addition to grouping by arrival time, you need each group
+    group to consist of 1 man and 1 woman (or 2 “A” players and 2 “B” players, etc).
+-   If you define a method called **`get_players_for_group`**, it will get called
+    whenever a new player reaches the wait page.
+-   The method’s argument is the list of players who are waiting to be
+    grouped (in no particular order).
+-   If you select some of these players and return them as a list, those
+    players will be assigned to a group, and move forward.
+-   If you don’t return anything, then no grouping occurs.
+
+---
+
+# oTree Concepts \#2 - Wait pages
+## Methods - **`get_players_for_group()`**
+
+- Here’s an example where each group has 2 A and B players.
+
+```python
+class GroupingWaitPage(WaitPage):
+    group_by_arrival_time = True
+    def get_players_for_group(self, waiting_players):
+        a_players = [p for p in waiting_players if
+                     p.participant.vars['type'] == 'A']
+        b_players = [p for p in waiting_players if
+                     p.participant.vars['type'] == 'B']
+
+        if len(a_players) >= 2 and len(b_players) >= 2:
+            return [a_players[0], a_players[1],
+                    b_players[0], b_players[1]]
+
+    def is_displayed(self):
+        return self.round_number == 1
+```
+
+---
+
+# oTree Concepts \#2 - Wait pages
+## Methods - Customizing the wait page’s appearance
+
+-   You can customize the text that appears on a wait page by setting the
+    **`title_text`** and **`body_text`**:
+
+```python
+class MyWaitPage(WaitPage):
+    title_text = "Custom title text"
+    body_text = "Custom body text"
+```
+
+---
+
+# oTree Concepts \#2 - Wait pages
+## Methods - Customizing the wait page’s appearance
+
+-   You can also make a custom wait page template. For example,
+    save this to **`my_app/templates/my_app/MyWaitPage.html`**:
+
+```javascript
+{% extends 'otree/WaitPage.html' %}
+{% load staticfiles otree %}
+{% block title %}{{ title_text }}{% endblock %}
+{% block content %}
+    {{ body_text }}
+    My custom content here.
+{% endblock %}
+```
+
+Then tell your wait page to use this template:
+
+```python
+class MyWaitPage(WaitPage):
+    template_name = 'my_app/MyWaitPage.html'
+```
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+
+## Apps
+
+-   In oTree (and Django), an app is a folder containing Python and HTML code.
+-   A session is basically a sequence of apps that are played one after the other.
+
+## Creating an app
+
+Enter:
+
+```bash
+$ otree startapp your_app_name
+```
+
+-   This will create a new app folder based on a oTree template, with most of the
+    structure already set up for you.
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Apps - Combining apps
+
+-   In your **`SESSION_CONFIGS`**, you can combine apps by setting
+    'app_sequence'.
+-   assuming you have created apps named my_app_1 and my_app_2):
+
+```python
+SESSION_CONFIGS = [{
+    'name': 'my_session_config',
+    'display_name': 'My Session Config',
+    'num_demo_participants': 2,
+    'app_sequence': ['my_app_1', 'my_app_2'],
+}]
+```
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Rounds
+
+-   You can make a game run for multiple rounds by setting
+    **`Constants.num_rounds`** in **`models.py`**.
+-   For example, if your session config’s app_sequence is
+    **`['app1', 'app2'`**], where:
+    -   **app1** has **`num_rounds = 3`**
+    -   and **app2** has **`num_rounds = 1`**, then your sessions will contain
+        4 subsessions.
+
+        1. app1 Round1
+        2. app1 Round2
+        3. app1 Round3
+        4. app2 Round1
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Rounds - Round numbers
+
+-   You can get the current round number with **`self.round_number`**
+    (this attribute is present on subsession, group, player, and page **objects**).
+-   Round numbers start from 1.
+
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Rounds - Passing data between rounds or apps
+
+-   Each round has separate Subsession, Group, and Player objects.
+-   For example, let’s say you set **`self.player.my_field = True`** in **round 1**.
+    In round 2, if you try to access **`self.player.my_field`**, you will find its
+    value is **`None`**,
+-   This is because the Player objects in **round 1** are separate from Player
+    objects in **round 2**.
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Rounds - **`in_rounds, in_previous_rounds, in_round`** etc.
+
+-   Player, group, and subsession objects have the following methods, which work
+    similarly:
+
+    -   **`in_previous_rounds()`** return a list
+        of players representing the same participant in previous rounds of the same app
+    -   **`in_all_rounds()`** like `in_previous_rounds` but includes the current round’s player
+- For example, if you wanted to calculate a participant’s payoff for all
+previous rounds of a game, plus the current one:
+
+```python
+cumulative_payoff = sum([p.payoff for p in
+                        self.player.in_all_rounds()])
+```
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Rounds - **`in_rounds, in_previous_rounds, in_round`** etc.
+
+-   **`in_rounds(m, n)`** returns a list of players representing the same participant from rounds m to n.
+-   **`in_round(n)`**  returns just the player in round m.
+-   For example, to get the player’s payoff in the previous round, you would
+    do:
+
+```python
+self.player.in_round(self.round_number - 1).payoff
+```
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Rounds - **`in_rounds, in_previous_rounds, in_round`** etc.
+
+-   Similarly, **subsession** objects have methods **`in_previous_rounds()`**,
+    **`in_all_rounds(), in_rounds(m,n)`** and **`in_round(m)`** that work the same way.
+-   **Group** objects also have methods but note that if you
+    **re-shuffle** groups between rounds, then these methods **may not return**
+    **anything meaningful.**
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Rounds - **`participant.vars`**
+
+-   **`in_all_rounds()`** only is useful when you need to access data from a previous
+    round of the same app.
+-   If you want to pass data between different apps,
+    you should store this data on the participant, which persists across apps
+-   **`participant.vars`**: is a dictionary that can store any data.
+    For example, you can set an attribute like this:
+
+```python
+self.participant.vars['name'] = 'John'
+```
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Apps - Passing data between apps
+
+-   The current participant can be accessed from a **`Page`** or **`Player`**:
+
+```python
+# in views.py
+class MyPage(Page):
+    def before_next_page(self):
+        self.participant.vars['foo'] = 1
+
+# in models.py
+class Player(BasePlayer):
+    def some_method(self):
+        self.participant.vars['foo'] = 1
+```
+
+---
+
+# oTree Concepts \#2 - Apps & rounds
+## Apps - **`session.vars`**
+
+-   For global variables that are the same for all participants in the
+    session, you can use **`self.session.vars`**.
+-   This is a dictionary just  like participant.vars. The difference is that if
+    you set a variable in self.session.vars, it will apply to all participants
+    in the session, not just one.
+-   As described here, the session object can be accessed from a Page object or
+    any of the models (Player, Group, Subsession, etc.).
+
+
+
 ----------------------------------------------------------------------
 
 # References
