@@ -67,7 +67,6 @@ We need 3 pages:
 ---
 
 # Tutorial \#2: Trust Game.
-
 ## Settings and run
 
 -   Add an entry to **`SESSION_CONFIGS`** in **`settings.py`**
@@ -122,6 +121,8 @@ Group objects have the following methods:
     (ordered by `id_in_group`).
 -   **`get_player_by_id(n)`**: Returns the player in the group with the given
     `id_in_group`.
+
+\centerline{\includegraphics[height=120px]{imgs/player_select.png}}
 
 ---
 
@@ -263,6 +264,9 @@ matrix = [
     using regular Python list operations, and then pass this modified matrix
     to **`set_group_matrix()`**.
 
+\centerline{\includegraphics[height=120px]{imgs/matrix.png}}
+
+
 ---
 
 # oTree Concepts \#2 - Multiplayer Games
@@ -385,6 +389,8 @@ class NormalWaitPage(WaitPage):
     pass
 ```
 
+\centerline{\includegraphics[height=100px]{imgs/waiting.png}}
+
 ---
 
 # oTree Concepts \#2 - Wait pages
@@ -432,6 +438,8 @@ class ResultsWaitPage(WaitPage):
     the player skips the wait page.
 -   If some or all players in the group skip the wait page, then
     **`after_all_players_arrive()`** may not be run.
+
+\centerline{\includegraphics[height=140px]{imgs/displayed.png}}
 
 ---
 
@@ -631,6 +639,7 @@ SESSION_CONFIGS = [{
     (this attribute is present on subsession, group, player, and page **objects**).
 -   Round numbers start from 1.
 
+\centerline{\includegraphics[height=150px]{imgs/round.png}}
 
 ---
 
@@ -736,6 +745,7 @@ class Player(BasePlayer):
 -   As described here, the session object can be accessed from a Page object or
     any of the models (Player, Group, Subsession, etc.).
 
+\centerline{\includegraphics[height=90px]{imgs/session.png}}
 
 ---
 
@@ -945,6 +955,8 @@ unique secret key to each participant’s URLs, like this:
 In the admin interface, click “Rooms” in the header bar, and click the
 room you created. Scroll down to the section with the participant URLs.
 
+\centerline{\includegraphics[height=150px]{imgs/room.png}}
+
 ---
 
 # oTree Concepts \#2 - Rooms
@@ -1008,6 +1020,8 @@ room you created. Scroll down to the section with the participant URLs.
 -   You can switch from points to real money by
     setting **`USE_POINTS = False`** in **`settings.py`**.
 
+\centerline{\includegraphics[height=130px]{imgs/money.png}}
+
 ---
 
 # oTree Concepts \#2 - Money & Payoffs
@@ -1062,6 +1076,8 @@ class Player(BasePlayer):
 
 -   In templates use the |c filter. For example, **`{{ 20|c }}`** displays as
     **20 points**.
+
+\centerline{\includegraphics[height=150px]{imgs/money2.png}}
 
 ---
 
@@ -1122,6 +1138,8 @@ self.participant.payoff_plus_participation_fee()
     whatever number of decimal places you desire.
 -   If you change the number of decimal places, you must resetdb.
 
+\centerline{\includegraphics[height=130px]{imgs/points.png}}
+
 ---
 
 # oTree Concepts \#2 - Money & Payoffs
@@ -1135,6 +1153,7 @@ self.participant.payoff_plus_participation_fee()
 ```python
 POINTS_CUSTOM_NAME = 'tokens
 ```
+
 
 ---
 
