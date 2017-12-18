@@ -193,6 +193,117 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
 -   The HTML in the sidebar of the demo page
 
+---
+
+# Localization
+
+- oTree’s participant interface has been translated to the following languages:
+
+    -   Chinese (simplified)
+    -   Dutch
+    -   French
+    -   German
+    -   Hungarian
+    -   Italian
+    -   Japanese
+    -   Korean
+    -   Norwegian
+    -   Russian
+    -   Spanish
+-   This means that all built-in text that gets displayed to participants is
+    available in these languages.
+
+
+---
+
+# Localization
+
+-   This localization includes things like:
+
+    -   Form validation messages
+    -   Wait page messages
+    -   Dates, times and numbers (e.g. “1.5” vs “1,5”)
+
+-   So, as long as you write your app’s text in one of these languages, all
+    text that participants will see will be in that language.
+-   For more information, see the Django documentation on translation and
+    format localization.
+-   However, oTree’s admin/experimenter interface is currently only available in
+    English, and the existing sample games have not been translated to any other
+    languages.
+
+---
+
+# Localization
+## Changing the language setting
+
+-   Go to **`settings.py`**, change **`LANGUAGE_CODE`**, and restart the server.
+    For example:
+
+```python
+LANGUAGE_CODE = 'fr' # French
+LANGUAGE_CODE = 'zh-hans' # Chinese (simplified)
+```
+
+---
+
+# Localization
+## Writing your app in multiple languages
+
+-   You may want your own app to work in multiple languages.
+-   For example, let’s say you want to run the same experiment with
+    English, French, and Chinese participants.
+-   For this, you can use Django’s translation system.
+
+---
+
+# Localization
+## A quick summary:
+
+-   Go to settings.py, change LANGUAGE_CODE, and restart the server.
+-   Create a folder locale in each app you are translating, e.g. public_goods/locale.
+-   If you forget to create this folder, the translations will go into your
+    root directory’s locale folder.
+    At the top of your templates, add
+
+```javascript
+{% load i18n %}
+```
+-   Then use . There are some things you can’t use inside a blocktrans, such as
+    variables containing dots
+
+```javascript
+{% blocktrans trimmed %}...{% endblocktrans %}
+```
+
+---
+
+# Localization
+## A quick summary:
+
+-   If you have localizable strings in your **Python code**, use **`ugettext.`**
+-   Use **`makemessages`** to create the **.po** files in your app’s locale directory:
+
+```bash
+$ django-admin makemessages -l fr
+$ django-admin makemessages -l zh_Hans
+```
+
+-   Edit the .po file in Poedit
+
+---
+
+# Localization
+## A quick summary:
+
+-   Run **`compilemessages`** to create **.mo**.mo files next to your .po files.
+
+```bash
+$ django-admin compilemessages
+```
+
+-   If you localize the files under **`_templates/global`**, you need to create a
+    directory locale in the root of the project.
 
 
 ----------------------------------------------------------------------
