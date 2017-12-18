@@ -1138,7 +1138,6 @@ self.participant.payoff_plus_participation_fee()
     whatever number of decimal places you desire.
 -   If you change the number of decimal places, you must resetdb.
 
-\centerline{\includegraphics[height=130px]{imgs/points.png}}
 
 ---
 

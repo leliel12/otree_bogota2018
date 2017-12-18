@@ -48,11 +48,11 @@ Python Characteristics. Why Python are used in Science?
 
 ## Parte 2: oTree Avanzado.
 
-### Clase 5 - Configuraciones, Internacionalización y Depuración - Tutorial #3.
+### Clase 5 - Configurations, I18n y Debug - Tutorial \#3.
 
-- Archivo de configuraciones `settings.py`.
-- Internacionalización con archivos `.po`.
-- Como hacer depuración (`pdb` e `ipdb`)
+- Config file `settings.py`.
+- Internacionalization with  `.po`. files
+- Debugging (`pdb` and `ipdb`)
 - **Tutorial #3:** Matching Pennies.
 
 
