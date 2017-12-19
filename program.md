@@ -52,7 +52,7 @@ Python Characteristics. Why Python are used in Science?
 
 - Config file `settings.py`.
 - Internacionalization with  `.po`. files
-- Debugging (`pdb` and `ipdb`)
+- Debugging (`pdb`)
 - **Tutorial #3:** Matching Pennies.
 
 
@@ -60,7 +60,7 @@ Python Characteristics. Why Python are used in Science?
 
 - **Real Effort:** Particularidad: generación de texto dentro de imágenes.
 - **Toilet Game:** Particularidad: incluye un chat rudimentario.
-- - Testing.
+- Testing.
 
 
 ### Clase 7 - Despliegues y Mechanical Turk.
