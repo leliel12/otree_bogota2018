@@ -306,6 +306,106 @@ $ django-admin compilemessages
     directory locale in the root of the project.
 
 
+---
+
+# Debug
+
+-   The module **`pdb`** defines an interactive source code debugger.
+-   It supports setting (conditional) breakpoints and single stepping at the source line level,
+    inspection of stack frames, source code listing, and evaluation of arbitrary Python code
+    in the context of any stack frame.
+-   It also supports post-mortem debugging and can be called under program control.
+
+
+```python
+>>> import pdb
+>>> import mymodule
+>>> pdb.run('mymodule.test()')
+> <string>(0)?()
+(Pdb) continue
+> <string>(1)?()
+(Pdb) continue
+NameError: 'spam'
+> <string>(1)?()
+(Pdb)
+```
+
+---
+
+# Debug
+## PostMortem
+
+The typical usage to inspect a crashed program is:
+
+```python
+>>> import pdb
+>>> import mymodule
+>>> mymodule.test()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "./mymodule.py", line 4, in test
+    test2()
+  File "./mymodule.py", line 3, in test2
+    print(spam)
+NameError: spam
+>>> pdb.pm()
+> ./mymodule.py(3)test2()
+-> print(spam)
+(Pdb)
+```
+
+---
+
+# Debug
+## Break-Points
+
+- The typical usage to break into the debugger from a running program is to insert
+
+```python
+import pdb; pdb.set_trace()
+```
+
+---
+
+# Debug
+## Commands
+
+\centerline{\includegraphics[height=150px]{imgs/pdb.png}}
+
+
+---
+
+# Debug
+## Commands
+
+-   **`h(elp) [command]`**
+    Without argument, print the list of available commands. With a command as argument, print help about that command.
+
+-   **`w(here)`**
+    Print a stack trace, with the most recent frame at the bottom.
+-   **`u(p) [count]`**
+    Move the current frame count (default one) levels up in the stack trace (to an older frame).
+
+-   **`s(tep)`**
+    Execute the current line, stop at the first possible occasion (either in a function that is called or on the next line in the current function).
+
+---
+
+# Debug
+## Commands
+
+-   **`n(ext)`**
+    Continue execution until the next line in the current function is reached or it returns. (The difference between
+    next and step is that step stops inside a called function, while next  at the next line in the current function.)
+
+-   **`unt(il) [lineno]`**
+    With a line number, continue execution until a line with a number greater or equal to that is reached. In both cases, also stop when the current frame returns.
+
+-   **`c(ont(inue))`**
+    Continue execution, only stop when a breakpoint is encountered.
+
+
+
 ----------------------------------------------------------------------
 
 # References
