@@ -9,6 +9,133 @@ pandoc-latex-fontsize:
 header-includes:
     - \usepackage{caption}
 
+
+---
+
+# Tutorial \#3: Matching Pennies
+
+\centerline{\includegraphics[height=150px]{imgs/code.jpg}}
+
+- Open your console (Powershell, terminal, or any flaored pyton console)
+- Open an editor (PyCharm, SublimeText, Kate, Atom...)
+- Follow Me!
+
+---
+
+# Tutorial \#3: Matching Pennies
+
+We will now create a “Matching pennies” game with the following features:
+
+-   4 rounds
+-   The roles of the players will be reversed halfway through
+-   In each round, a “history box” will display the results of previous rounds
+-   A random round will be chosen for payment
+
+##  Create the app
+
+```bash
+$ otree startapp my_matching_pennies
+```
+
+---
+
+# Tutorial \#3: Matching Pennies -  Define **`models.py`**
+
+## Constants class
+We define our constants as we have previously. Matching pennies is a 2-person
+game and the payoff for winning a paying round is 100 points. In this case,
+the game has 4 rounds, so we set num_rounds (see Rounds).
+
+## Player class:
+
+-   In each round, each player decides “Heads” or “Tails”, so we define a field **`tails`**,
+    which will be displayed as a radio button.
+-   We also have a boolean field **`is_winner`** that records if this player won this round.
+-   We define the **`role`** method to define which player is the “Matcher” and which is the “Mismatcher”.
+
+---
+
+# Tutorial \#3: Matching Pennies -  Define **`models.py`**
+## Payment Round:
+
+-   let’s define the code to randomly choose a round for payment.
+-   Let’s define the code in **`Subsession.creating_session`**, which is the place to
+-   put code that initializes the state of the game.
+-   The value of the chosen round is “global” rather than different for each
+    participant, so the logical place to store it is
+    in **`self.session.vars`**.
+
+## Code to swap roles halfway through
+
+-   This kind of group-shuffling code should also go in **`creating_session`**.
+    We put it after our existing code.
+-   So, in round 3, we should do the shuffle, and then in round 4, use
+    **`group_like_round(3)`** to copy the group structure from round 3.
+
+---
+
+# Tutorial \#3: Matching Pennies -  Define **`models.py`**
+## Group class.
+
+-   We define the payoff method.
+-   We use **`get_player_by_role`** to fetch each of the 2 players in the group.
+-   Then, depending on whether the penny sides match, we either make P1 or P2 the winner.
+-   Remember that the player should only receive a payoff if the current round is the
+    randomly chosen paying round. Otherwise, the payoff should be 0.
+
+---
+
+# Tutorial \#3: Matching Pennies -  Templates and views
+
+-   This game has 2 main pages:
+
+    1.  A Choice page that gets repeated for each round. The user is asked to
+        choose heads/tails, and they are also shown a “history box” showing the
+        results of previous rounds.
+    2.  A ResultsSummary page that only gets displayed once at the end, and
+        tells the user their final payoff.
+
+---
+
+# Tutorial \#3: Matching Pennies -  Templates and views
+## Choice view
+
+-   In **`views.py`**, we define the **`Choice`** page. This page should contain a form field
+    that sets **`player.tails`**, so we set **`form_model`** and **`form_fields`**.
+-   Also, on this page we would like to display a “history box” table that shows
+    the result of all previous rounds. So, we can use
+    **`player.in_previous_rounds(), `**which returns a list referring to the
+    same participant in rounds 1, 2, 3, etc.
+-   We then create a template **`Choice.html`**.
+
+---
+
+# Tutorial \#3: Matching Pennies -  Templates and views
+##  ResultsWaitPage
+
+-   Before a player proceeds to the next round’s **`Choice`** page, they need to wait
+    for the other player to complete the **`Choice`** page as well.
+-   So, as usual, we
+    use a **`WaitPage`**. Also, once both players have arrived at the wait page,
+    we call the **`set_payoffs`** method we defined earlier.
+
+## ResultsSummary
+
+-   It only gets shown in the last round, so we set **`is_displayed`** accordingly.
+-   We retrieve the value of **`paying_round`** from session.vars
+-   We get the user’s total payoff by summing up how much they made in each round.
+-   We pass the round history to the template with **`player.in_all_rounds()`**
+
+---
+
+# Tutorial \#3: Matching Pennies
+## Settings and run
+
+-   Define the page sequence
+-   Add an entry to **`SESSION_CONFIGS`** in **`settings.py`**
+-   Reset the database and run.
+
+
 ---
 
 # **`settings.py`**.
