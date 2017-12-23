@@ -31,6 +31,8 @@ We will now create a “Matching pennies” game with the following features:
 -   In each round, a “history box” will display the results of previous rounds
 -   A random round will be chosen for payment
 
+
+
 ##  Create the app
 
 ```bash
@@ -95,6 +97,9 @@ the game has 4 rounds, so we set num_rounds (see Rounds).
     2.  A ResultsSummary page that only gets displayed once at the end, and
         tells the user their final payoff.
 
+\centerline{\includegraphics[height=150px]{imgs/pennies.jpg}}
+
+
 ---
 
 # Tutorial \#3: Matching Pennies -  Templates and views
@@ -135,6 +140,8 @@ the game has 4 rounds, so we set num_rounds (see Rounds).
 -   Add an entry to **`SESSION_CONFIGS`** in **`settings.py`**
 -   Reset the database and run.
 
+\centerline{\includegraphics[height=150px]{imgs/run.png}}
+
 
 ---
 
@@ -147,6 +154,7 @@ oTree-specific settings. Full info on all Django’s settings can be found:
 https://docs.djangoproject.com/en/1.8/ref/settings/
 ```
 
+\centerline{\includegraphics[height=100px]{imgs/settings.png}}
 
 ---
 
@@ -296,6 +304,8 @@ POINTS_CUSTOM_NAME = 'tokens
 
 - **DONE in Day 4**
 
+\centerline{\includegraphics[height=150px]{imgs/done.png}}
+
 ---
 
 # **`settings.py`**.
@@ -381,6 +391,8 @@ LANGUAGE_CODE = 'zh-hans' # Chinese (simplified)
 -   For example, let’s say you want to run the same experiment with
     English, French, and Chinese participants.
 -   For this, you can use Django’s translation system.
+
+\centerline{\includegraphics[height=100px]{imgs/babel.png}}
 
 ---
 
@@ -492,6 +504,8 @@ NameError: spam
 import pdb; pdb.set_trace()
 ```
 
+\centerline{\includegraphics[height=100px]{imgs/break.png}}
+
 ---
 
 # Debug
@@ -538,3 +552,5 @@ import pdb; pdb.set_trace()
 # References
 
 -   http://otree.readthedocs.io/en/latest/
+-   https://docs.python.org/3.6/library/pdb.html
+-   https://docs.djangoproject.com/en/1.11/topics/i18n/
