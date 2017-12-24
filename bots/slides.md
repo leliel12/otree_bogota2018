@@ -1,6 +1,6 @@
 
 ---
-title:  Bots (a dancy way to say "testing")
+title:  Bots (a fancy way to say "testing")
 author: Juan Cabral - jbc.develop@gmail.com
 date: Jan, 2018
 pandoc-latex-fontsize:
@@ -18,6 +18,8 @@ header-includes:
     you can test that it functions properly.
 -   A lot of oTree users skip writing bots because they think it’s complicated
     or because they are too busy with writing the code for their app.
+
+\centerline{\includegraphics[height=150px]{imgs/bot.png}}
 
 ---
 
@@ -112,6 +114,8 @@ class PlayerBot(Bot):
 -   The test system will raise an error if the bot submits invalid input for a page,
     or if it submits pages in the wrong order.
 
+\centerline{\includegraphics[height=50px]{imgs/submit.png}}
+
 ---
 
 # Writing tests
@@ -181,13 +185,15 @@ class PlayerBot(Bot):
 
 ```python
 class MyPage(Page):
+  form_model = models.Player
+  form_fields = ['int1', 'int2', 'int3']
 
-    form_model = models.Player
-    form_fields = ['int1', 'int2', 'int3']
-
-    def error_message(self, values):
-        if values["int1"] + values["int2"] + values["int3"] != 100:
-            return 'The numbers must add up to 100'
+  def error_message(self, values):
+    total = (
+        values["int1"] + values["int2"] +
+        values["int3"])
+    if total != 100:
+      return 'The numbers must add up to 100'
 ```
 
 ---
@@ -241,6 +247,8 @@ class PlayerBot(Bot):
     integers, or even dictionaries.
 -   Here is a trust game bot that uses dictionaries as cases.
     (see: **`player_bot_example2.py`**)
+
+\centerline{\includegraphics[height=100px]{imgs/testcase.png}}
 
 ---
 
@@ -331,6 +339,8 @@ class PlayerBot(Bot)
 -   Run your server and create a session. The pages will auto-play with
     browser bots, once the start links are opened.
 
+\centerline{\includegraphics[height=90px]{imgs/browser.png}}
+
 ---
 
 # Browser bots
@@ -400,11 +410,11 @@ $ otree browser_bots
 
 -   You can use a browser other than Chrome by setting **`BROWSER_COMMAND`** in
     **`settings.py`**.
--   Then, oTree will open the browser by doing something like
+-   Then, oTree will open the browser by doing something like:
 
 ```python
 subprocess.Popen(settings.BROWSER_COMMAND)
-```.
+```
 
 
 
