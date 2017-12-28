@@ -52,7 +52,23 @@ $(document).ready(function(){
     $sendButton.click(function(){
         $sendButton.prop('disabled', true);
         $inputArea.prop('disabled', true);
+
+        var url = "{% url 'real_effort1:send_transcription' %}";
+        var msgData = {
+            transcription: $inputArea.val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        };
+
+        $.post(url, msgData).error(function(){
+            $sendButton.prop('disabled', false);
+            $inputArea.prop('disabled', false);
+        }).success(function(data){
+            $inputArea.val("");
+            $inputArea.prop('disabled', true);
+
+        });
     });
+
 });
 </script>
 {% endblock %}
