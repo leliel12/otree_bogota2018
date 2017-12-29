@@ -2,12 +2,33 @@
 {% load staticfiles otree %}
 
 {% block title %}
-    Page title
+    Results
 {% endblock %}
 
 {% block content %}
+    <div class="lead text-success">
+        Your payoff is: <strong>{{player.payoff}}</strong>
+    </div>
 
-    {% next_button %}
+    </div>
+    <div>
+        <h3>Resume</h3>
+        <ol>
+            <tbody>
+                {% for t in subsession.texts %}
+                {% if forloop.counter0 <= player.current_text_idx %}
+               <li>
+                    {{t}}
+                    <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+                </li>
+                {% else %}
+                <li>
+                    {{t}}
+                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </ol>
+    </div>
 {% endblock %}
-
-
