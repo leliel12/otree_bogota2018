@@ -9,10 +9,13 @@ from django.db.models import UUIDField
 
 from jsonfield import JSONField
 
+from picklefield.fields import PickledObjectField
+
 import Levenshtein as lev
 
 import words
 
+from .text2png import render
 
 
 author = 'Your name here'
@@ -23,26 +26,28 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'real_effort1'
+    name_in_url = 'real_effort2'
     players_per_group = None
     num_rounds = 1
-    timeout = 60
-    texts_number = 100
+    timeout = None
+    texts_number = 3
     text_size = 5  # words
     min_distance_different_text = 10
 
 class Subsession(BaseSubsession):
 
     texts = JSONField()
+    images = PickledObjectField()
 
     def creating_session(self):
-        texts = set()
+        texts = []
         while len(texts) < Constants.texts_number:
             text = words.random_text(Constants.text_size)
             distances = [lev.distance(text, t) for t in texts]
             if not texts or min(distances) > Constants.min_distance_different_text:
-                texts.add(text)
-        self.texts = list(texts)
+                texts.append(text)
+        self.texts = texts
+        self.images = list(map(render, texts))
 
     def set_payoffs(self):
         players = self.get_players()
@@ -64,6 +69,12 @@ class Player(BasePlayer):
     def current_text(self):
         try:
             return self.subsession.texts[self.current_text_idx]
+        except IndexError:
+            return None
+
+    def current_image(self):
+        try:
+            return self.subsession.images[self.current_text_idx]
         except IndexError:
             return None
 

@@ -8,6 +8,9 @@ import otree.settings
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+FONTS_DIR = os.path.join(BASE_DIR, "_fonts")
+
+
 # the environment variable OTREE_PRODUCTION controls whether Django runs in
 # DEBUG mode. If OTREE_PRODUCTION==1, then DEBUG=False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
@@ -102,9 +105,15 @@ SESSION_CONFIG_DEFAULTS = {
 SESSION_CONFIGS = [
     {
         'name': 'real_effort_1',
-        'display_name': 'Real Effort',
+        'display_name': 'Real Effort (Words)',
         'num_demo_participants': 1,
         'app_sequence': ['real_effort1'],
+    },
+        {
+        'name': 'real_effort_2',
+        'display_name': 'Real Effort (Image)',
+        'num_demo_participants': 1,
+        'app_sequence': ['real_effort2'],
     }
 ]
 

@@ -51,7 +51,7 @@ def validate_transcription(request):
     data = {}
     if player.is_transcription_accurate(transcription):
         data['transcription_ok'] = True
-        data['new_text'] = player.current_text()
+        data['new_image'] = player.current_image()
         data['current_text_idx'] = player.current_text_idx
     else:
         data['transcription_ok'] = False
