@@ -13,10 +13,12 @@ from jsonfield import JSONField
 
 import Levenshtein as lev
 
-author = 'Your name here'
+author = 'oTree Bogota Tutorial 2018'
 
 doc = """
-Your app description
+This game generate a random string of <b>5 numbers</b>, <b>5 letters</b> and
+as must <b>5 spaces</b>. Every string must be a some Levenshtein distance of
+the others.
 """
 
 class Constants(BaseConstants):

@@ -13,12 +13,13 @@ import Levenshtein as lev
 
 import words
 
+author = 'oTree Bogota Tutorial 2018'
 
-
-author = 'Your name here'
 
 doc = """
-Your app description
+This game generate a random string of <b>5 english words</b> and
+Every string must be a some Levenshtein distance of
+the others.
 """
 
 

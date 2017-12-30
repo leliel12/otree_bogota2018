@@ -104,6 +104,12 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
+        'name': 'aggrement',
+        'display_name': 'Agrement',
+        'num_demo_participants': 1,
+        'app_sequence': ['aggrement'],
+    },
+    {
         'name': 'real_effort_0',
         'display_name': 'Real Effort (Random)',
         'num_demo_participants': 1,
@@ -117,9 +123,9 @@ SESSION_CONFIGS = [
     },
         {
         'name': 'real_effort_2',
-        'display_name': 'Real Effort (Image)',
+        'display_name': 'Aggrement + Real Effort (Image)',
         'num_demo_participants': 1,
-        'app_sequence': ['real_effort2'],
+        'app_sequence': ['aggrement', 'real_effort2'],
     }
 ]
 

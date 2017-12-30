@@ -18,10 +18,13 @@ import words
 from .text2png import render
 
 
-author = 'Your name here'
+author = 'oTree Bogota Tutorial 2018'
+
 
 doc = """
-Your app description
+This game generate a random string of <b>5 english words</b> and
+Every string must be a some Levenshtein distance of
+the others. Also the game render this text as an image
 """
 
 

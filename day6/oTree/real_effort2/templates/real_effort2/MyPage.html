@@ -20,6 +20,7 @@ button#send-button {
 {% block content %}
 
     <div class="alert alert-info">
+        <h4>Hello player of gender: {{player.participant.vars.gender}}</h4>
         <h4>Please Copy this text</h4>
         <hr>
         <img id="current-text" src="data:image/png;base64,{{player.current_image}}"></img>
