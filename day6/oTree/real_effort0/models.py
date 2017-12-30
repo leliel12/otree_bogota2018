@@ -1,4 +1,6 @@
 import uuid
+import random
+import string
 
 from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
@@ -11,20 +13,16 @@ from jsonfield import JSONField
 
 import Levenshtein as lev
 
-import words
-
-
-
 author = 'Your name here'
 
 doc = """
 Your app description
 """
 
-
 class Constants(BaseConstants):
-    name_in_url = 'real_effort1'
+    name_in_url = 'real_effort0'
     players_per_group = None
+    random_string_conf = {"numbers": 5, "letters": 15, "spaces": 5}
     num_rounds = 1
     timeout = 60
     texts_number = 100
@@ -35,10 +33,18 @@ class Subsession(BaseSubsession):
 
     texts = JSONField()
 
+    def random_string(self, numbers, letters, spaces):
+        numbers = [random.choice(string.digits) for _ in range(numbers)]
+        letters = [random.choice(string.ascii_uppercase) for _ in range(letters)]
+        spaces = [" "] * spaces
+        rstring = numbers + letters + spaces
+        random.shuffle(rstring)
+        return " ".join("".join(rstring).strip().split())
+
     def creating_session(self):
         texts = []
         while len(texts) < Constants.texts_number:
-            text = words.random_text(Constants.text_size)
+            text = self.random_string(**Constants.random_string_conf)
             distances = [lev.distance(text, t) for t in texts]
             if not texts or min(distances) > Constants.min_distance_different_text:
                 texts.append(text)

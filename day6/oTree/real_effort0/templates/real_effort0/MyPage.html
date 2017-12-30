@@ -1,0 +1,96 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Real-Effort: Text <span id="current-text-idx">{{player.current_text_idx|add:1}}</span>/{{Constants.texts_number}}
+{% endblock %}
+
+{% block styles %}
+<style>
+textarea#input-area {
+    width: 100%;
+}
+
+button#send-button {
+    margin-top: 10px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="alert alert-info">
+        <h4>Please Copy this text</h4>
+        <hr>
+        <div id="current-text">
+            {{player.current_text}}
+        </div>
+    </div>
+
+    <div id="input-area-container">
+        <p id="transcription-error-message" class="lead" style="display:none;">
+            Your transcription is wrong
+        </p>
+        <textarea id="input-area"></textarea>
+    </div>
+
+    <div>
+        <button type="button" id="send-button" class="btn btn-primary pull-right" disabled="true">
+            Send
+        </button>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    var $sendButton = $("#send-button");
+    var $inputArea = $("#input-area");
+    var $inputAreaContainer = $("#input-area-container");
+    var $errorMsg = $("#transcription-error-message");
+    var $currentText = $("#current-text");
+    var $currentTextIdx = $("#current-text-idx");
+    var $form = $("#form");
+
+    $inputArea.keyup(function(){
+        var text = $inputArea.val();
+        $sendButton.prop("disabled", (!text));
+    });
+
+    $sendButton.click(function(){
+        $sendButton.prop('disabled', true);
+        $inputArea.prop('disabled', true);
+
+        var url = "{% url 'real_effort0:validate_transcription' %}";
+        var msgData = {
+            transcription: $inputArea.val(),
+            player_token: '{{ player.token }}',
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        };
+
+        $.post(url, msgData).done(function(data){
+            if(data.transcription_ok) {
+                if(data.new_text == null){
+                    $form.submit();
+                    return;
+                }
+                $currentText.text(data.new_text)
+                $currentTextIdx.text(data.current_text_idx + 1);
+                $inputArea.val("");
+                $inputAreaContainer.removeClass("alert alert-danger");
+                $errorMsg.hide();
+            } else {
+                $inputAreaContainer.addClass("alert alert-danger");
+                $errorMsg.show();
+            }
+        }).always(function(){
+            $sendButton.prop('disabled', false);
+            $inputArea.prop('disabled', false);
+        });;
+    });
+
+});
+</script>
+{% endblock %}

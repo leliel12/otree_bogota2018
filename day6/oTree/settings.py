@@ -104,6 +104,12 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
+        'name': 'real_effort_0',
+        'display_name': 'Real Effort (Random)',
+        'num_demo_participants': 1,
+        'app_sequence': ['real_effort0'],
+    },
+    {
         'name': 'real_effort_1',
         'display_name': 'Real Effort (Words)',
         'num_demo_participants': 1,
