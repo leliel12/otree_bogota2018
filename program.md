@@ -48,7 +48,7 @@ Python Characteristics. Why Python are used in Science?
 
 ## Parte 2: oTree Avanzado.
 
-### Clase 5 - Configurations, I18n y Debug - Tutorial \#3.
+### Day 5 - Configurations, I18n y Debug - Tutorial \#3.
 
 - Config file `settings.py`.
 - Internacionalization with  `.po`. files
@@ -56,14 +56,17 @@ Python Characteristics. Why Python are used in Science?
 - **Tutorial #3:** Matching Pennies.
 
 
-### Clase 6 - Experimentos Reales Complejos y Testing.
+### Day 6 - A really complex oTree experiment.
 
-- **Real Effort:** Particularidad: generación de texto dentro de imágenes.
-- **Toilet Game:** Particularidad: incluye un chat rudimentario.
-- Testing.
+-   **Real Effort:**
+    -   Requirements with random string.
+    -   English words.
+    -   Render Image.
+    -   Agreement page.
+-   Testing.
 
 
-### Clase 7 - Despliegues y Mechanical Turk.
+### Day 7 - Deployment and Amazon Mechanical Turk .
 
 - Breve introducción a control de versiones con Git.
 - **Despliegues:** Despliegues en Heroku y despliegues locales. Bases de datos

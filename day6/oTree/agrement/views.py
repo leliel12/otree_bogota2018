@@ -6,9 +6,9 @@ from .models import Constants
 
 class MyPage(Page):
     form_model = models.Player
-    form_fields = ["gender", "accept_aggrement"]
+    form_fields = ["gender", "accept_agreement"]
 
-    def accept_aggrement_error_message(self, value):
+    def accept_agreement_error_message(self, value):
         if not value:
             return "You must accept!!!"
 

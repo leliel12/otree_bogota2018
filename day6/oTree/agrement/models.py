@@ -7,12 +7,12 @@ from otree.api import (
 author = 'oTree Bogota Tutorial 2018'
 
 doc = """
-A simple aggrement with gender-selection combo box.
+A simple agreement with gender-selection combo box.
 """
 
 
 class Constants(BaseConstants):
-    name_in_url = 'aggrement'
+    name_in_url = 'agreement'
     players_per_group = None
     num_rounds = 1
 
@@ -27,7 +27,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-    accept_aggrement = models.BooleanField()
+    accept_agreement = models.BooleanField()
     gender = models.CharField(choices=[
         'Agender',
         'Androgyne',
