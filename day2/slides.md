@@ -385,7 +385,7 @@ datetime.datetime(2017, 12, 5, 23, 44, 19, 679390)
 # from 7 spins of a biased coin that settles on
 # heads 60% of the time.
 >>> def trial():
-       return random.sample.choices(
+       return random.choices(
             'HT', cum_weights=(0.60, 1.00),
         k=7).count('H') >= 5
 >>> statistics.mean(trial() for _ in range(10000))

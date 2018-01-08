@@ -622,7 +622,7 @@ lassie.bark() # => "woof!"
     -   Dynamic typing
     -   Built-in types and tools
     -   Library utilities
-    -   Third party utilities (e.g. Numeric, NumPy, SciPy)
+    -   Third party utilities (e.g. NumPy, SciPy)
     -   Automatic memory management
 -   **It's portable**
     -   Python runs virtually every major platform used today
