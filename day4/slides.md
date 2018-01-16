@@ -1,6 +1,6 @@
 
 ---
-title:  oTree Concepts \#2 - Tutorial \#2 - Bots.
+title:  oTree Concepts \#2 - Tutorial \#2
 author: Juan Cabral - jbc.develop@gmail.com
 date: Jan, 2018
 pandoc-latex-fontsize:
@@ -468,11 +468,13 @@ consent pages.
 
 If a game has multiple rounds, you may want to only group by arrival time in round 1:
 
+```python
 class MyWaitPage(WaitPage):
     group_by_arrival_time = True
 
     def is_displayed(self):
         return self.round_number == 1
+```
 
 If you do this, then subsequent rounds will keep the same group structure as
 round 1. Otherwise, players will be re-grouped by their arrival time in each
@@ -521,12 +523,12 @@ round.
 ```python
 class GroupingWaitPage(WaitPage):
     group_by_arrival_time = True
+
     def get_players_for_group(self, waiting_players):
         a_players = [p for p in waiting_players if
                      p.participant.vars['type'] == 'A']
         b_players = [p for p in waiting_players if
                      p.participant.vars['type'] == 'B']
-
         if len(a_players) >= 2 and len(b_players) >= 2:
             return [a_players[0], a_players[1],
                     b_players[0], b_players[1]]

@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+
+    <ul class="">
+        <li>{{player.payoff}}</li>
+        <li>Average: {{ average }}</li>
+    </ul>
+{{foo}}
+    {% next_button %}
+{% endblock %}

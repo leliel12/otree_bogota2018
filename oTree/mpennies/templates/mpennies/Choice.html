@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Round Number {{subsession.round_number}}/{{Constants.num_rounds}}
+{% endblock %}
+
+{% block content %}
+    <div>
+
+    Role <b>{{player.role}}</b>
+    </div>
+
+
+    {% if subsession.round_number != 1 %}
+    {% include 'mpennies/history.html' %}
+    {% endif %}
+
+    <div>{% formfield player.tails label="Choice" %}</div>
+    <hr>
+    <div>
+
+    {% next_button %}
+    </div>
+
+{% endblock %}

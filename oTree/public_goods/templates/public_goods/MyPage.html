@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Contribution
+{% endblock %}
+
+{% block content %}
+    {{session.vars.sent_amount}}
+
+    <br>
+
+    {{form  }}
+
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Summary
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <h3>Round Payoff</h3>
+        From round #{{paying_round}} you win {{total_payoff}}
+    </div>
+
+    {% include 'mpennies/history.html' %}
+    {% next_button %}
+{% endblock %}

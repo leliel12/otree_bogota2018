@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    You are the player 1 - Please Send:
+{% endblock %}
+
+{% block content %}
+
+    {{form}}
+    <br>
+
+    {% next_button %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        Your payoff is {{player.payoff}}
+    </p>
+
+    {% next_button %}
+{% endblock %}

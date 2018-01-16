@@ -538,6 +538,13 @@ $ pip install -U otree-core
 
 \centerline{\includegraphics[height=120px]{imgs/splash.png}}
 
+
+```bash
+$ pip install -U otree-core --pre
+$ otree --version
+oTree: 1.5.0b3 - Django: 1.11.2
+```
+
 ---
 
 # oTree
@@ -550,12 +557,12 @@ oTree is a **framework** based on Python and Django that lets you build:
 -   Licensed under the **MIT open source license** with the added
     requirement of a citation of the paper.
 
-quotation{
+
 >    Chen, D. L., Schonger, M., & Wickens, C. (2016).
      oTree-An open-source platform for laboratory, online,
      and field experiments.
      Journal of Behavioral and Experimental Finance, 9,
-     88-97.}
+     88-97.
 
 
 ---
