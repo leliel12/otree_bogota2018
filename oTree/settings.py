@@ -8,6 +8,8 @@ import otree.settings
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+FONTS_DIR = os.path.join(BASE_DIR, "_fonts")
+
 # the environment variable OTREE_PRODUCTION controls whether Django runs in
 # DEBUG mode. If OTREE_PRODUCTION==1, then DEBUG=False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
@@ -100,30 +102,37 @@ SESSION_CONFIG_DEFAULTS = {
 
 
 SESSION_CONFIGS = [
-     {
-         'name': 'public_good_experiment',
-         'display_name': 'Public good',
-         'num_demo_participants': 3,
-         'app_sequence': ['public_goods'],
+     #~ {
+         #~ 'name': 'public_good_experiment',
+         #~ 'display_name': 'Public good',
+         #~ 'num_demo_participants': 3,
+         #~ 'app_sequence': ['public_goods'],
+     #~ },
+     #~ {
+         #~ 'name': 'trust',
+         #~ 'display_name': 'Trust Game',
+         #~ 'num_demo_participants': 2,
+         #~ 'app_sequence': ['trust'],
+     #~ },
+     #~ {
+         #~ 'name': 'trust_pg',
+         #~ 'display_name': 'Trust Game + Public Goods',
+         #~ 'num_demo_participants': 6,
+         #~ 'app_sequence': ['trust', "public_goods"],
+     #~ },
+     #~ {
+         #~ 'name': 'mpennies',
+         #~ 'display_name': 'Matching Pennies',
+         #~ 'num_demo_participants': 2,
+         #~ 'app_sequence': ['mpennies'],
+     #~ },
+  {
+         'name': 'reffort',
+         'display_name': 'Real Effort',
+         'num_demo_participants': 1,
+         'app_sequence': ['reffort'],
      },
-     {
-         'name': 'trust',
-         'display_name': 'Trust Game',
-         'num_demo_participants': 2,
-         'app_sequence': ['trust'],
-     },
-     {
-         'name': 'trust_pg',
-         'display_name': 'Trust Game + Public Goods',
-         'num_demo_participants': 6,
-         'app_sequence': ['trust', "public_goods"],
-     },
-     {
-         'name': 'mpennies',
-         'display_name': 'Matching Pennies',
-         'num_demo_participants': 2,
-         'app_sequence': ['mpennies'],
-     },
+
 ]
 
 ROOM_DEFAULTS = {}
@@ -134,7 +143,7 @@ ROOMS = [{
     }
 ]
 
-
+ROOT_URLCONF = "urls"
 
 # anything you put after the below line will override
 # oTree's default settings. Use with caution.

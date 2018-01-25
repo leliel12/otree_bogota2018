@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+    <div class="lead well">
+        You win {{participant.payoff}}
+
+    </div>
+    {% next_button %}
+{% endblock %}
